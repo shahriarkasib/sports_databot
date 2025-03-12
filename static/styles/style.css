@@ -1,0 +1,246 @@
+:root {
+    --primary-font: 'Open Sans', sans-serif;
+    --body-bg: #f0f2f5;
+  
+    /* Chat bubble colors, etc. */
+    --bot-bubble-bg: #eef3ff;
+    --user-bubble-bg: #4b87ff;
+    --bot-text-color: #333;
+    --user-text-color: #fff;
+  }
+  
+  /* Reset & base styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    background: var(--body-bg);
+    font-family: var(--primary-font);
+  }
+  
+  /* Main container for sidebar + chat + progress box */
+  .container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden; /* prevents extra scrollbars */
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 240px;
+    background: #c2e9fb;
+    padding: 15px;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+  }
+  
+  .sidebar h2 {
+    margin-bottom: 10px;
+  }
+  
+  .sidebar ul {
+    max-height: 600px; /* adjust based on your design */
+    overflow-y: auto;
+    padding-right: 5px; /* optional: add padding for scrollbar space */
+  }
+  
+  
+  .sidebar li {
+    margin-bottom: 10px;
+    cursor: pointer; /* show pointer on hover */
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .sidebar li:hover {
+    background-color: #b4d7ea;
+  }
+  
+  /* Chat area */
+  .msger {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background: #fff;
+    overflow: hidden;
+  }
+  
+  .msger-header {
+    padding: 15px;
+    background: #fafbff;
+    border-bottom: 1px solid #ddd;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+  }
+  
+  .msger-wrapper {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    background: #fdfdff;
+  }
+  
+  /* Chat messages list */
+  .msger-chat {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Each message */
+  .msg {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  /* Bot (left) vs. user (right) messages */
+  .msg.left-msg {
+    flex-direction: row;        /* avatar left, bubble to the right */
+  }
+  .msg.right-msg {
+    flex-direction: row-reverse;/* avatar right, bubble to the left */
+  }
+  
+  /* Avatar image */
+  .msg-img {
+    width: 40px;
+    height: 40px;
+    background: #ddd no-repeat center/cover;
+    border-radius: 50%;
+  }
+  
+  /* The bubble itself */
+  .msg-bubble {
+    max-width: 75%;
+    padding: 15px;
+    border-radius: 15px;
+    line-height: 1.4;
+  }
+  
+  /* Spacing between avatar and bubble */
+  .left-msg .msg-bubble {
+    margin-left: 10px;  /* space between left avatar and bubble */
+  }
+  .right-msg .msg-bubble {
+    margin-right: 10px; /* space between right avatar and bubble */
+  }
+  
+  /* Bot vs user bubble colors */
+  .left-msg .msg-bubble {
+    background: var(--bot-bubble-bg);
+    color: var(--bot-text-color);
+  }
+  .right-msg .msg-bubble {
+    background: var(--user-bubble-bg);
+    color: var(--user-text-color);
+  }
+  
+  /* For name/time above bubble */
+  .msg-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 5px;
+  }
+  .msg-info-name {
+    font-weight: 600;
+  }
+  .msg-info-time {
+    font-size: 0.75rem;
+  }
+  
+  /* Input area */
+  .msger-inputarea {
+    display: flex;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+    gap: 10px;
+    background: #fafbff;
+  }
+  
+  .msger-input {
+    flex: 1;
+    resize: none;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    height: 40px;
+    font-size: 1rem;
+    transition: height 0.2s ease;
+  }
+  
+  .msger-send-btn {
+    background: #4b87ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .msger-send-btn:hover {
+    background: #3b78ed;
+  }
+  
+  /* Progress box on top corner */
+  .progress-box {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 260px;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+    padding: 15px;
+    border-radius: 8px;
+    display: none;
+    z-index: 9999;
+  }
+  .progress-box h3 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+  .progress-box ul {
+    list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  /* Optional: table styling for response data */
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 0.95rem;
+    min-width: 200px;
+  }
+  
+  .styled-table thead tr {
+    background-color: #4b87ff;
+    color: #ffffff;
+    text-align: left;
+  }
+  
+  .styled-table th, 
+  .styled-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+  }
+  
+  .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .styled-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .styled-table thead th {
+    font-weight: 600;
+  }
+  

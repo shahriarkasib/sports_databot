@@ -1,0 +1,553 @@
+{
+  "mlb_batting_dataframe": {
+    "table": "mlb_batting_dataframe",
+    "schema": "public",
+    "description": "Contains per-game hitting statistics for MLB batters. Each row represents a single game’s batting stats for one batter.",
+    "columns": [
+      {
+        "name": "player_name",
+        "type": "varchar",
+        "description": "Name of the batter."
+      },
+      {
+        "name": "team_name",
+        "type": "varchar",
+        "description": "Name of the team the batter played for in this game."
+      },
+      {
+        "name": "game_date",
+        "type": "date",
+        "description": "Date of the game."
+      },
+      {
+        "name": "ab",
+        "type": "integer",
+        "description": "Number of at-bats in the game."
+      },
+      {
+        "name": "h",
+        "type": "integer",
+        "description": "Number of hits in the game."
+      },
+      {
+        "name": "r",
+        "type": "integer",
+        "description": "Number of runs scored."
+      },
+      {
+        "name": "rbi",
+        "type": "integer",
+        "description": "Number of runs batted in."
+      },
+      {
+        "name": "hr",
+        "type": "integer",
+        "description": "Number of home runs."
+      },
+      {
+        "name": "avg",
+        "type": "float",
+        "description": "Batting average for that game (hits/at-bats)."
+      },
+      {
+        "name": "obp",
+        "type": "float",
+        "description": "On-base percentage for that game."
+      },
+      {
+        "name": "slg",
+        "type": "float",
+        "description": "Slugging percentage for that game."
+      },
+      {
+        "name": "ops",
+        "type": "float",
+        "description": "On-base plus slugging for that game."
+      },
+      {
+        "name": "bb",
+        "type": "integer",
+        "description": "Number of walks drawn."
+      },
+      {
+        "name": "k",
+        "type": "integer",
+        "description": "Number of strikeouts."
+      }
+    ]
+  },
+  "mlb_pitching_dataframe": {
+    "table": "mlb_pitching_dataframe",
+    "schema": "public",
+    "description": "Contains per-game pitching statistics for MLB pitchers. Each row represents a single game pitched by one pitcher.",
+    "columns": [
+      {
+        "name": "pitcher_name",
+        "type": "varchar",
+        "description": "Name of the pitcher."
+      },
+      {
+        "name": "team_name",
+        "type": "varchar",
+        "description": "Name of the pitcher’s team for this game."
+      },
+      {
+        "name": "game_date",
+        "type": "date",
+        "description": "Date of the game."
+      },
+      {
+        "name": "ip",
+        "type": "float",
+        "description": "Innings pitched in the game."
+      },
+      {
+        "name": "er",
+        "type": "integer",
+        "description": "Earned runs allowed in the game."
+      },
+      {
+        "name": "k",
+        "type": "integer",
+        "description": "Number of strikeouts recorded."
+      },
+      {
+        "name": "bb",
+        "type": "integer",
+        "description": "Walks allowed."
+      },
+      {
+        "name": "h_allowed",
+        "type": "integer",
+        "description": "Hits allowed."
+      },
+      {
+        "name": "hr_allowed",
+        "type": "integer",
+        "description": "Home runs allowed."
+      },
+      {
+        "name": "era",
+        "type": "float",
+        "description": "Earned Run Average for the game, scaled to 9 innings."
+      },
+      {
+        "name": "whip",
+        "type": "float",
+        "description": "Walks + Hits per inning pitched."
+      },
+      {
+        "name": "starter",
+        "type": "boolean",
+        "description": "Indicates if the pitcher was the starting pitcher (1) or a reliever (0)."
+      }
+    ]
+  },
+  "plate_appearance_dataframe": {
+    "table": "plate_appearance_dataframe",
+    "schema": "public",
+    "description": "Contains per plate appearance data in MLB. Each row is one matchup between a batter and a pitcher in a particular game situation.",
+    "columns": [
+      {
+        "name": "batter_name",
+        "type": "varchar",
+        "description": "Name of the batter in this plate appearance.",
+        "references": {
+          "table": "mlb_batting_dataframe",
+          "column": "player_name"
+        }
+      },
+      {
+        "name": "pitcher_name",
+        "type": "varchar",
+        "description": "Name of the pitcher in this plate appearance.",
+        "references": {
+          "table": "mlb_pitching_dataframe",
+          "column": "pitcher_name"
+        }
+      },
+      {
+        "name": "batter_team_name",
+        "type": "varchar",
+        "description": "Team of the batter.",
+        "references": {
+          "table": "mlb_batting_dataframe",
+          "column": "team_name"
+        }
+      },
+      {
+        "name": "pitcher_team_name",
+        "type": "varchar",
+        "description": "Team of the pitcher.",
+        "references": {
+          "table": "mlb_pitching_dataframe",
+          "column": "team_name"
+        }
+      },
+      {
+        "name": "p_throws",
+        "type": "varchar",
+        "description": "Pitcher’s throwing hand (R or L)."
+      },
+      {
+        "name": "inning",
+        "type": "integer",
+        "description": "Inning of this plate appearance."
+      },
+      {
+        "name": "event_type",
+        "type": "varchar",
+        "description": "Outcome of the plate appearance (e.g., single, double, HR, strikeout, walk)."
+      },
+      {
+        "name": "runners_on_base",
+        "type": "varchar",
+        "description": "Runner configuration on base before the plate appearance (e.g., 1B, 2B, 3B)."
+      },
+      {
+        "name": "outs",
+        "type": "integer",
+        "description": "Number of outs before this plate appearance."
+      },
+      {
+        "name": "pa_year",
+        "type": "integer",
+        "description": "Season (year) for the plate appearance."
+      },
+      {
+        "name": "starter",
+        "type": "boolean",
+        "description": "Indicates if the pitcher was a starter (1) or a reliever (0) for this appearance."
+      }
+    ]
+  },
+  "pitch_dataframe": {
+    "table": "pitch_dataframe",
+    "schema": "public",
+    "description": "Contains per pitch data in MLB. Each row represents a single pitch thrown by a pitcher against a specific batter.",
+    "columns": [
+      {
+        "name": "pitcher_name",
+        "type": "varchar",
+        "description": "Name of the pitcher.",
+        "references": {
+          "table": "plate_appearance_dataframe",
+          "column": "pitcher_name"
+        }
+      },
+      {
+        "name": "batter_name",
+        "type": "varchar",
+        "description": "Name of the batter.",
+        "references": {
+          "table": "plate_appearance_dataframe",
+          "column": "batter_name"
+        }
+      },
+      {
+        "name": "pitcher_team_name",
+        "type": "varchar",
+        "description": "Team of the pitcher.",
+        "references": {
+          "table": "plate_appearance_dataframe",
+          "column": "pitcher_team_name"
+        }
+      },
+      {
+        "name": "batter_team_name",
+        "type": "varchar",
+        "description": "Team of the batter.",
+        "references": {
+          "table": "plate_appearance_dataframe",
+          "column": "batter_team_name"
+        }
+      },
+      {
+        "name": "p_throws",
+        "type": "varchar",
+        "description": "Pitcher’s throwing hand (R or L)."
+      },
+      {
+        "name": "pitch_type",
+        "type": "varchar",
+        "description": "Type of the pitch (e.g., fastball, slider, curve)."
+      },
+      {
+        "name": "velocity",
+        "type": "float",
+        "description": "Pitch velocity in miles per hour (MPH)."
+      },
+      {
+        "name": "ball",
+        "type": "integer",
+        "description": "Indicates if the pitch was a ball (1) or not (0)."
+      },
+      {
+        "name": "strike",
+        "type": "integer",
+        "description": "Indicates if the pitch was a strike (1) or not (0)."
+      },
+      {
+        "name": "swinging_strike",
+        "type": "integer",
+        "description": "Indicates if the pitch was swung at and missed (1) or not (0)."
+      },
+      {
+        "name": "pitch_year",
+        "type": "integer",
+        "description": "Season (year) for this pitch."
+      },
+      {
+        "name": "starter",
+        "type": "boolean",
+        "description": "Indicates if the pitcher was a starter (1) or reliever (0)."
+      }
+    ]
+  },
+  "nfl_main_df": {
+    "table": "nfl_main_df",
+    "schema": "public",
+    "description": "Contains per-game stats for NFL players. Each row represents one player’s performance in a single game.",
+    "columns": [
+      {
+        "name": "player_name",
+        "type": "varchar",
+        "description": "Name of the player."
+      },
+      {
+        "name": "team_name",
+        "type": "varchar",
+        "description": "Name of the player’s team."
+      },
+      {
+        "name": "opponent_team_name",
+        "type": "varchar",
+        "description": "Name of the opposing team."
+      },
+      {
+        "name": "game_date",
+        "type": "date",
+        "description": "Date of the game."
+      },
+      {
+        "name": "passing_yards",
+        "type": "integer",
+        "description": "Total passing yards (commonly used for quarterbacks)."
+      },
+      {
+        "name": "rushing_yards",
+        "type": "integer",
+        "description": "Total rushing yards (often used for running backs or other positions)."
+      },
+      {
+        "name": "receiving_yards",
+        "type": "integer",
+        "description": "Total receiving yards (often for wide receivers or tight ends)."
+      },
+      {
+        "name": "touchdowns",
+        "type": "integer",
+        "description": "Total touchdowns in the game (passing, rushing, or receiving)."
+      },
+      {
+        "name": "home",
+        "type": "boolean",
+        "description": "Indicates if the team was at home (1) or away (0)."
+      },
+      {
+        "name": "passes",
+        "type": "integer",
+        "description": "Number of pass attempts (used for QB threshold)."
+      },
+      {
+        "name": "targets",
+        "type": "integer",
+        "description": "Number of pass targets (used for receiver threshold)."
+      },
+      {
+        "name": "carries",
+        "type": "integer",
+        "description": "Number of rushing attempts (used for RB threshold)."
+      },
+      {
+        "name": "season_year",
+        "type": "integer",
+        "description": "Season (year) for the game."
+      }
+    ]
+  },
+  "nfl_play_by_play": {
+    "table": "nfl_play_by_play",
+    "schema": "public",
+    "description": "Contains down-by-down details for NFL games. Each row is one play from a specific game.",
+    "columns": [
+      {
+        "name": "game_datetime",
+        "type": "timestamp",
+        "description": "Start time of the game."
+      },
+      {
+        "name": "quarter",
+        "type": "integer",
+        "description": "Which quarter the play took place (1-4, possibly OT)."
+      },
+      {
+        "name": "game_seconds_remaining",
+        "type": "integer",
+        "description": "How many seconds remain in the game at the start of this play."
+      },
+      {
+        "name": "down",
+        "type": "integer",
+        "description": "Which down (1st, 2nd, 3rd, 4th)."
+      },
+      {
+        "name": "yards_to_go",
+        "type": "integer",
+        "description": "Yards needed for a 1st down on this play."
+      },
+      {
+        "name": "yards_to_endzone",
+        "type": "integer",
+        "description": "Yards remaining to reach the end zone on this play."
+      },
+      {
+        "name": "play_description",
+        "type": "varchar",
+        "description": "Textual description of the play’s outcome."
+      },
+      {
+        "name": "home",
+        "type": "boolean",
+        "description": "Indicates if the offensive team is at home (1) or away (0)."
+      },
+      {
+        "name": "season_year",
+        "type": "integer",
+        "description": "Season (year) for the play."
+      }
+    ]
+  },
+  "nba_main_dataframe": {
+    "table": "nba_main_dataframe",
+    "schema": "public",
+    "description": "Contains per-game stats for NBA players. Each row represents one player’s performance in a single game.",
+    "columns": [
+      {
+        "name": "player_name",
+        "type": "varchar",
+        "description": "Name of the NBA player."
+      },
+      {
+        "name": "team_name",
+        "type": "varchar",
+        "description": "Player’s team name."
+      },
+      {
+        "name": "opponent_name",
+        "type": "varchar",
+        "description": "The opposing team in this game."
+      },
+      {
+        "name": "season",
+        "type": "integer",
+        "description": "Season (year) of the game."
+      },
+      {
+        "name": "game_date",
+        "type": "date",
+        "description": "Date of the game."
+      },
+      {
+        "name": "pts",
+        "type": "integer",
+        "description": "Total points scored by the player."
+      },
+      {
+        "name": "reb",
+        "type": "integer",
+        "description": "Total rebounds by the player."
+      },
+      {
+        "name": "ast",
+        "type": "integer",
+        "description": "Total assists by the player."
+      },
+      {
+        "name": "blk",
+        "type": "integer",
+        "description": "Total blocks by the player."
+      },
+      {
+        "name": "stl",
+        "type": "integer",
+        "description": "Total steals by the player."
+      },
+      {
+        "name": "min",
+        "type": "float",
+        "description": "Number of minutes the player was on the court."
+      },
+      {
+        "name": "fga",
+        "type": "integer",
+        "description": "Number of field goal attempts."
+      },
+      {
+        "name": "fgm",
+        "type": "integer",
+        "description": "Number of field goals made."
+      }
+    ]
+  },
+  "nba_play_by_play": {
+    "table": "nba_play_by_play",
+    "schema": "public",
+    "description": "Contains per-play details for NBA games. Each row is a single play from a particular game.",
+    "columns": [
+      {
+        "name": "season",
+        "type": "integer",
+        "description": "Season (year) of the play."
+      },
+      {
+        "name": "quarter",
+        "type": "integer",
+        "description": "Which quarter the play took place (1-4, possibly OT)."
+      },
+      {
+        "name": "time_remaining",
+        "type": "varchar",
+        "description": "Time remaining in the quarter (MM:SS format)."
+      },
+      {
+        "name": "offense_player_name",
+        "type": "varchar",
+        "description": "Player involved in the offensive action (e.g., scoring, passing).",
+        "references": {
+          "table": "nba_main_dataframe",
+          "column": "player_name"
+        }
+      },
+      {
+        "name": "defense_team_name",
+        "type": "varchar",
+        "description": "Defending team name.",
+        "references": {
+          "table": "nba_main_dataframe",
+          "column": "opponent_name"
+        }
+      },
+      {
+        "name": "play_description",
+        "type": "varchar",
+        "description": "Text describing the play."
+      },
+      {
+        "name": "event_type",
+        "type": "varchar",
+        "description": "Type of play (e.g., shot made, turnover, foul, assist, rebound)."
+      }
+    ]
+  }
+}

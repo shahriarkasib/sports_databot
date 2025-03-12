@@ -1,0 +1,392 @@
+table_name,column_name,data_type
+nba_main_dataframe,three_pointer_attempt,DOUBLE PRECISION
+nba_main_dataframe,three_pointer_made,DOUBLE PRECISION
+nba_main_dataframe,ast,DOUBLE PRECISION
+nba_main_dataframe,avg_speed,DOUBLE PRECISION
+nba_main_dataframe,blk,DOUBLE PRECISION
+nba_main_dataframe,blka,DOUBLE PRECISION
+nba_main_dataframe,catch_shoot_pts,DOUBLE PRECISION
+nba_main_dataframe,dist_feet,DOUBLE PRECISION
+nba_main_dataframe,dreb,DOUBLE PRECISION
+nba_main_dataframe,drive_pts,DOUBLE PRECISION
+nba_main_dataframe,elbow_touch_pts,DOUBLE PRECISION
+nba_main_dataframe,fga,DOUBLE PRECISION
+nba_main_dataframe,fgm,DOUBLE PRECISION
+nba_main_dataframe,fta,DOUBLE PRECISION
+nba_main_dataframe,ftm,DOUBLE PRECISION
+nba_main_dataframe,game_date,TIMESTAMP
+nba_main_dataframe,min,DOUBLE PRECISION
+nba_main_dataframe,pie_adv,DOUBLE PRECISION
+nba_main_dataframe,pf,DOUBLE PRECISION
+nba_main_dataframe,plus_minus,DOUBLE PRECISION
+nba_main_dataframe,positions,TEXT
+nba_main_dataframe,poss_adv,BIGINT
+nba_main_dataframe,post_touch_pts,DOUBLE PRECISION
+nba_main_dataframe,pts,DOUBLE PRECISION
+nba_main_dataframe,pts_2nd_chance,DOUBLE PRECISION
+nba_main_dataframe,pts_fb,DOUBLE PRECISION
+nba_main_dataframe,pts_off_tov,DOUBLE PRECISION
+nba_main_dataframe,tov,DOUBLE PRECISION
+nba_main_dataframe,pts_paint,DOUBLE PRECISION
+nba_main_dataframe,pull_up_pts,DOUBLE PRECISION
+nba_main_dataframe,reb,DOUBLE PRECISION
+nba_main_dataframe,reb_chances,DOUBLE PRECISION
+nba_main_dataframe,starter,BIGINT
+nba_main_dataframe,stl,DOUBLE PRECISION
+nba_main_dataframe,tchs_tracker,BIGINT
+nba_main_dataframe,usg_pct,DOUBLE PRECISION
+nba_main_dataframe,player_name,TEXT
+nba_main_dataframe,playoffs,BIGINT
+nba_main_dataframe,regular_season,BIGINT
+nba_main_dataframe,home,DOUBLE PRECISION
+nba_main_dataframe,season,BIGINT
+nba_main_dataframe,team_name,TEXT
+nba_main_dataframe,opponent_name,TEXT
+nba_play_by_play,quarter,BIGINT
+nba_play_by_play,game_date,TIMESTAMP
+nba_play_by_play,playoffs,BIGINT
+nba_play_by_play,regular_season,BIGINT
+nba_play_by_play,season_id,BIGINT
+nba_play_by_play,three_pointer_attempt,BIGINT
+nba_play_by_play,three_pointer_made,BIGINT
+nba_play_by_play,ast,BIGINT
+nba_play_by_play,reb,BIGINT
+nba_play_by_play,fga,BIGINT
+nba_play_by_play,fgm,BIGINT
+nba_play_by_play,fta,BIGINT
+nba_play_by_play,ftm,BIGINT
+nba_play_by_play,dunk,BIGINT
+nba_play_by_play,pf,BIGINT
+nba_play_by_play,tov,BIGINT
+nba_play_by_play,pts,BIGINT
+nba_play_by_play,stl,BIGINT
+nba_play_by_play,blk,BIGINT
+nba_play_by_play,shooter_player_name,TEXT
+nba_play_by_play,assist_player_name,TEXT
+nba_play_by_play,rebound_player_name,TEXT
+nba_play_by_play,defender_player_name,TEXT
+nba_play_by_play,possession_team_name,TEXT
+nba_play_by_play,defense_team_name,TEXT
+nba_play_by_play,quarter_seconds_remaining,BIGINT
+nba_play_by_play,game_seconds_remaining,BIGINT
+nba_play_by_play,season,BIGINT
+nfl_main_df,player_name,TEXT
+nfl_main_df,position,TEXT
+nfl_main_df,player_team_name,TEXT
+nfl_main_df,season,BIGINT
+nfl_main_df,week,BIGINT
+nfl_main_df,completions,BIGINT
+nfl_main_df,attempts,BIGINT
+nfl_main_df,passing_yards,DOUBLE PRECISION
+nfl_main_df,passing_tds,BIGINT
+nfl_main_df,interceptions,DOUBLE PRECISION
+nfl_main_df,sacks,DOUBLE PRECISION
+nfl_main_df,sack_yards,DOUBLE PRECISION
+nfl_main_df,sack_fumbles,BIGINT
+nfl_main_df,sack_fumbles_lost,BIGINT
+nfl_main_df,passing_air_yards,DOUBLE PRECISION
+nfl_main_df,passing_yards_after_catch,DOUBLE PRECISION
+nfl_main_df,passing_epa,DOUBLE PRECISION
+nfl_main_df,passing_2pt_conversions,BIGINT
+nfl_main_df,dakota,DOUBLE PRECISION
+nfl_main_df,carries,BIGINT
+nfl_main_df,rushing_yards,DOUBLE PRECISION
+nfl_main_df,rushing_tds,BIGINT
+nfl_main_df,rushing_fumbles,DOUBLE PRECISION
+nfl_main_df,rushing_fumbles_lost,DOUBLE PRECISION
+nfl_main_df,rushing_epa,DOUBLE PRECISION
+nfl_main_df,rushing_2pt_conversions,BIGINT
+nfl_main_df,receptions,BIGINT
+nfl_main_df,targets,BIGINT
+nfl_main_df,receiving_yards,DOUBLE PRECISION
+nfl_main_df,receiving_tds,BIGINT
+nfl_main_df,receiving_fumbles,DOUBLE PRECISION
+nfl_main_df,receiving_fumbles_lost,DOUBLE PRECISION
+nfl_main_df,receiving_air_yards,DOUBLE PRECISION
+nfl_main_df,receiving_yards_after_catch,DOUBLE PRECISION
+nfl_main_df,receiving_epa,DOUBLE PRECISION
+nfl_main_df,receiving_2pt_conversions,BIGINT
+nfl_main_df,special_teams_tds,DOUBLE PRECISION
+nfl_main_df,opponent_team,TEXT
+nfl_main_df,opponent_team_name,TEXT
+nfl_main_df,temp,DOUBLE PRECISION
+nfl_main_df,wind,DOUBLE PRECISION
+nfl_main_df,stadium,TEXT
+nfl_main_df,game_date,TIMESTAMP
+nfl_main_df,game_type,TEXT
+nfl_main_df,weekday,TEXT
+nfl_main_df,game_datetime,TIMESTAMP
+nfl_main_df,overtime,DOUBLE PRECISION
+nfl_main_df,home,BIGINT
+nfl_main_df,starting_qb,DOUBLE PRECISION
+nfl_main_df,playoffs,BIGINT
+nfl_main_df,no_huddle_pass_attempts,DOUBLE PRECISION
+nfl_main_df,no_huddle_completions,DOUBLE PRECISION
+nfl_main_df,qb_dropback_pass_attempts,DOUBLE PRECISION
+nfl_main_df,qb_dropback_completions,DOUBLE PRECISION
+nfl_main_df,qb_hit_pass_attempts,DOUBLE PRECISION
+nfl_main_df,qb_hit_completions,DOUBLE PRECISION
+nfl_main_df,qb_scramble_pass_attempts,DOUBLE PRECISION
+nfl_main_df,qb_scramble_completions,DOUBLE PRECISION
+nfl_main_df,short_completions,DOUBLE PRECISION
+nfl_main_df,deep_completions,DOUBLE PRECISION
+nfl_main_df,short_pass_attempts,DOUBLE PRECISION
+nfl_main_df,deep_pass_attempts,DOUBLE PRECISION
+nfl_main_df,right_pass_attempts,DOUBLE PRECISION
+nfl_main_df,middle_pass_attempts,DOUBLE PRECISION
+nfl_main_df,left_pass_attempts,DOUBLE PRECISION
+nfl_main_df,right_completions,DOUBLE PRECISION
+nfl_main_df,middle_completions,DOUBLE PRECISION
+nfl_main_df,left_completions,DOUBLE PRECISION
+nfl_main_df,longest_completion,DOUBLE PRECISION
+nfl_main_df,right_targets,DOUBLE PRECISION
+nfl_main_df,middle_targets,DOUBLE PRECISION
+nfl_main_df,left_targets,DOUBLE PRECISION
+nfl_main_df,right_receptions,DOUBLE PRECISION
+nfl_main_df,middle_receptions,DOUBLE PRECISION
+nfl_main_df,left_receptions,DOUBLE PRECISION
+nfl_main_df,short_receptions,DOUBLE PRECISION
+nfl_main_df,deep_receptions,DOUBLE PRECISION
+nfl_main_df,short_targets,DOUBLE PRECISION
+nfl_main_df,deep_targets,DOUBLE PRECISION
+nfl_main_df,longest_reception,DOUBLE PRECISION
+nfl_play_by_play,playoffs,BIGINT
+nfl_play_by_play,week,BIGINT
+nfl_play_by_play,possession_home,BIGINT
+nfl_play_by_play,yards_to_endzone,DOUBLE PRECISION
+nfl_play_by_play,game_date,TIMESTAMP
+nfl_play_by_play,quarter_seconds_remaining,DOUBLE PRECISION
+nfl_play_by_play,game_seconds_remaining,DOUBLE PRECISION
+nfl_play_by_play,quarter,DOUBLE PRECISION
+nfl_play_by_play,down,DOUBLE PRECISION
+nfl_play_by_play,yards_to_fist_down,DOUBLE PRECISION
+nfl_play_by_play,yards_gained,DOUBLE PRECISION
+nfl_play_by_play,shotgun,DOUBLE PRECISION
+nfl_play_by_play,no_huddle,DOUBLE PRECISION
+nfl_play_by_play,qb_dropback,DOUBLE PRECISION
+nfl_play_by_play,qb_kneel,DOUBLE PRECISION
+nfl_play_by_play,qb_spike,DOUBLE PRECISION
+nfl_play_by_play,qb_scramble,DOUBLE PRECISION
+nfl_play_by_play,air_yards,DOUBLE PRECISION
+nfl_play_by_play,yards_after_catch,DOUBLE PRECISION
+nfl_play_by_play,touchdown_team_name,TEXT
+nfl_play_by_play,possession_team_score,DOUBLE PRECISION
+nfl_play_by_play,defense_team_score,DOUBLE PRECISION
+nfl_play_by_play,score_differential,DOUBLE PRECISION
+nfl_play_by_play,first_down_rush,DOUBLE PRECISION
+nfl_play_by_play,first_down_pass,DOUBLE PRECISION
+nfl_play_by_play,first_down_penalty,DOUBLE PRECISION
+nfl_play_by_play,third_down_converted,DOUBLE PRECISION
+nfl_play_by_play,third_down_failed,DOUBLE PRECISION
+nfl_play_by_play,fourth_down_converted,DOUBLE PRECISION
+nfl_play_by_play,fourth_down_failed,DOUBLE PRECISION
+nfl_play_by_play,interception,DOUBLE PRECISION
+nfl_play_by_play,safety,DOUBLE PRECISION
+nfl_play_by_play,penalty,DOUBLE PRECISION
+nfl_play_by_play,tackled_for_loss,DOUBLE PRECISION
+nfl_play_by_play,qb_hit,DOUBLE PRECISION
+nfl_play_by_play,pass_attempt,DOUBLE PRECISION
+nfl_play_by_play,sack,DOUBLE PRECISION
+nfl_play_by_play,pass_touchdown,DOUBLE PRECISION
+nfl_play_by_play,rush_touchdown,DOUBLE PRECISION
+nfl_play_by_play,return_touchdown,DOUBLE PRECISION
+nfl_play_by_play,field_goal_attempt,DOUBLE PRECISION
+nfl_play_by_play,kickoff_attempt,DOUBLE PRECISION
+nfl_play_by_play,punt_attempt,DOUBLE PRECISION
+nfl_play_by_play,fumble,DOUBLE PRECISION
+nfl_play_by_play,complete_pass,DOUBLE PRECISION
+nfl_play_by_play,penalty_team_name,TEXT
+nfl_play_by_play,penalty_yards,DOUBLE PRECISION
+nfl_play_by_play,right_rush,BIGINT
+nfl_play_by_play,middle_rush,BIGINT
+nfl_play_by_play,left_rush,BIGINT
+nfl_play_by_play,right_pass_attempt,BIGINT
+nfl_play_by_play,middle_pass_attempt,BIGINT
+nfl_play_by_play,left_pass_attempt,BIGINT
+nfl_play_by_play,short_pass_attempt,BIGINT
+nfl_play_by_play,deep_pass_attempt,BIGINT
+nfl_play_by_play,game_datetime,TIMESTAMP
+nfl_play_by_play,stadium,TEXT
+nfl_play_by_play,roof,BIGINT
+nfl_play_by_play,temp,DOUBLE PRECISION
+nfl_play_by_play,wind,DOUBLE PRECISION
+nfl_play_by_play,pass,DOUBLE PRECISION
+nfl_play_by_play,rush,DOUBLE PRECISION
+nfl_play_by_play,first_down,DOUBLE PRECISION
+nfl_play_by_play,xpass,DOUBLE PRECISION
+nfl_play_by_play,season,BIGINT
+nfl_play_by_play,defenders_in_box,DOUBLE PRECISION
+nfl_play_by_play,number_of_pass_rushers,DOUBLE PRECISION
+nfl_play_by_play,time_to_throw,DOUBLE PRECISION
+nfl_play_by_play,hitch_route,BIGINT
+nfl_play_by_play,angle_route,BIGINT
+nfl_play_by_play,screen_route,BIGINT
+nfl_play_by_play,in_route,BIGINT
+nfl_play_by_play,flat_route,BIGINT
+nfl_play_by_play,post_route,BIGINT
+nfl_play_by_play,cross_route,BIGINT
+nfl_play_by_play,out_route,BIGINT
+nfl_play_by_play,go_route,BIGINT
+nfl_play_by_play,corner_route,BIGINT
+nfl_play_by_play,slant_route,BIGINT
+nfl_play_by_play,wheel_route,BIGINT
+nfl_play_by_play,defense_zone_coverage,BIGINT
+nfl_play_by_play,defense_man_coverage,BIGINT
+nfl_play_by_play,passer_name,TEXT
+nfl_play_by_play,receiver_name,TEXT
+nfl_play_by_play,rusher_name,TEXT
+nfl_play_by_play,touchdown_player_name,TEXT
+nfl_play_by_play,possession_team_name,TEXT
+nfl_play_by_play,defense_team_name,TEXT
+nfl_play_by_play,drive_time_of_possession_in_seconds,BIGINT
+sportgpt_results,answer,TEXT
+sportgpt_results,question,TEXT
+sportgpt_results,query,TEXT
+mlb_pitching_dataframe,season_id,BIGINT
+mlb_pitching_dataframe,game_date,TIMESTAMP
+mlb_pitching_dataframe,pitcher_name,TEXT
+mlb_pitching_dataframe,team_name,TEXT
+mlb_pitching_dataframe,opponent_name,TEXT
+mlb_pitching_dataframe,ip,DOUBLE PRECISION
+mlb_pitching_dataframe,h_allowed,DOUBLE PRECISION
+mlb_pitching_dataframe,r_allowed,DOUBLE PRECISION
+mlb_pitching_dataframe,er_allowed,DOUBLE PRECISION
+mlb_pitching_dataframe,bb,DOUBLE PRECISION
+mlb_pitching_dataframe,k,DOUBLE PRECISION
+mlb_pitching_dataframe,hr,DOUBLE PRECISION
+mlb_pitching_dataframe,pitches,DOUBLE PRECISION
+mlb_pitching_dataframe,strike,DOUBLE PRECISION
+mlb_pitching_dataframe,ball,DOUBLE PRECISION
+mlb_pitching_dataframe,save,BIGINT
+mlb_pitching_dataframe,loss,BIGINT
+mlb_pitching_dataframe,win,BIGINT
+mlb_pitching_dataframe,pa,DOUBLE PRECISION
+mlb_pitching_dataframe,ab,DOUBLE PRECISION
+mlb_pitching_dataframe,single_allowed,DOUBLE PRECISION
+mlb_pitching_dataframe,double_allowed,DOUBLE PRECISION
+mlb_pitching_dataframe,triple_allowed,DOUBLE PRECISION
+mlb_pitching_dataframe,hit_by_pitch_allowed,DOUBLE PRECISION
+mlb_pitching_dataframe,starter,DOUBLE PRECISION
+mlb_pitching_dataframe,swinging_strike,DOUBLE PRECISION
+mlb_pitching_dataframe,called_strike,DOUBLE PRECISION
+mlb_pitching_dataframe,flyballs_allowed,DOUBLE PRECISION
+mlb_pitching_dataframe,groundballs_allowed,DOUBLE PRECISION
+mlb_pitching_dataframe,popups_allowed,DOUBLE PRECISION
+mlb_pitching_dataframe,line_drives_allowed,DOUBLE PRECISION
+mlb_pitching_dataframe,balls_in_play_allowed,DOUBLE PRECISION
+mlb_pitching_dataframe,home,DOUBLE PRECISION
+mlb_pitching_dataframe,venue_name,TEXT
+mlb_pitching_dataframe,game_datetime,TIMESTAMP
+mlb_pitching_dataframe,grounded_into_double_play_allowed,DOUBLE PRECISION
+mlb_pitching_dataframe,wild_pitch,DOUBLE PRECISION
+mlb_pitching_dataframe,fouls,DOUBLE PRECISION
+mlb_batting_dataframe,season_id,BIGINT
+mlb_batting_dataframe,game_date,TIMESTAMP
+mlb_batting_dataframe,batter_name,TEXT
+mlb_batting_dataframe,team_name,TEXT
+mlb_batting_dataframe,opponent_name,TEXT
+mlb_batting_dataframe,ab,BIGINT
+mlb_batting_dataframe,r,BIGINT
+mlb_batting_dataframe,h,BIGINT
+mlb_batting_dataframe,singles,BIGINT
+mlb_batting_dataframe,doubles,BIGINT
+mlb_batting_dataframe,triples,BIGINT
+mlb_batting_dataframe,hr,BIGINT
+mlb_batting_dataframe,rbi,BIGINT
+mlb_batting_dataframe,sb,BIGINT
+mlb_batting_dataframe,bb,BIGINT
+mlb_batting_dataframe,k,BIGINT
+mlb_batting_dataframe,pa,DOUBLE PRECISION
+mlb_batting_dataframe,flyballs,DOUBLE PRECISION
+mlb_batting_dataframe,groundballs,DOUBLE PRECISION
+mlb_batting_dataframe,popups,DOUBLE PRECISION
+mlb_batting_dataframe,line_drives,DOUBLE PRECISION
+mlb_batting_dataframe,balls_in_play,DOUBLE PRECISION
+mlb_batting_dataframe,hit_by_pitch,DOUBLE PRECISION
+mlb_batting_dataframe,home,DOUBLE PRECISION
+mlb_batting_dataframe,venue_name,TEXT
+mlb_batting_dataframe,game_datetime,TIMESTAMP
+mlb_batting_dataframe,grounded_into_double_play,DOUBLE PRECISION
+mlb_batting_dataframe,batting_order_lineup,INTEGER
+mlb_batting_dataframe,sac_fly,DOUBLE PRECISION
+mlb_batting_dataframe,sac_bunt,DOUBLE PRECISION
+mlb_batting_dataframe,bunt_grounds_out,DOUBLE PRECISION
+mlb_batting_dataframe,bunt_hit,DOUBLE PRECISION
+mlb_batting_dataframe,fouls,DOUBLE PRECISION
+plate_appearance_dataframe,game_date,TIMESTAMP
+plate_appearance_dataframe,release_speed,DOUBLE PRECISION
+plate_appearance_dataframe,zone,DOUBLE PRECISION
+plate_appearance_dataframe,game_type,TEXT
+plate_appearance_dataframe,batter_hand,TEXT
+plate_appearance_dataframe,p_throws,TEXT
+plate_appearance_dataframe,balls,BIGINT
+plate_appearance_dataframe,strikes,BIGINT
+plate_appearance_dataframe,game_year,BIGINT
+plate_appearance_dataframe,runner_on_3b,DOUBLE PRECISION
+plate_appearance_dataframe,runner_on_2b,DOUBLE PRECISION
+plate_appearance_dataframe,runner_on_1b,DOUBLE PRECISION
+plate_appearance_dataframe,outs_when_up,BIGINT
+plate_appearance_dataframe,inning,BIGINT
+plate_appearance_dataframe,inning_topbot,TEXT
+plate_appearance_dataframe,batted_ball_distance,DOUBLE PRECISION
+plate_appearance_dataframe,batted_ball_exit_velocity,DOUBLE PRECISION
+plate_appearance_dataframe,batted_ball_launch_angle,DOUBLE PRECISION
+plate_appearance_dataframe,pitch_name,TEXT
+plate_appearance_dataframe,pitcher_name,TEXT
+plate_appearance_dataframe,batter_name,TEXT
+plate_appearance_dataframe,runs_scored,BIGINT
+plate_appearance_dataframe,pitcher_home,BIGINT
+plate_appearance_dataframe,batter_home,BIGINT
+plate_appearance_dataframe,batter_team_name,TEXT
+plate_appearance_dataframe,pitcher_team_name,TEXT
+plate_appearance_dataframe,venue_name,TEXT
+plate_appearance_dataframe,balls_in_play,BIGINT
+plate_appearance_dataframe,starter,DOUBLE PRECISION
+plate_appearance_dataframe,ab,BIGINT
+plate_appearance_dataframe,rbi,BIGINT
+plate_appearance_dataframe,k,BIGINT
+plate_appearance_dataframe,bb,BIGINT
+plate_appearance_dataframe,grounded_into_double_play,BIGINT
+plate_appearance_dataframe,hit_by_pitch,BIGINT
+plate_appearance_dataframe,sac_bunt,BIGINT
+plate_appearance_dataframe,singles,BIGINT
+plate_appearance_dataframe,doubles,BIGINT
+plate_appearance_dataframe,triples,BIGINT
+plate_appearance_dataframe,hr,BIGINT
+plate_appearance_dataframe,h,BIGINT
+plate_appearance_dataframe,intentional_walk,BIGINT
+plate_appearance_dataframe,swinging_strikeout,BIGINT
+plate_appearance_dataframe,called_strikeout,BIGINT
+plate_appearance_dataframe,sac_fly,BIGINT
+plate_appearance_dataframe,pa,BIGINT
+pitch_dataframe,game_date,TIMESTAMP
+pitch_dataframe,release_speed,DOUBLE PRECISION
+pitch_dataframe,zone,DOUBLE PRECISION
+pitch_dataframe,game_type,TEXT
+pitch_dataframe,batter_hand,TEXT
+pitch_dataframe,p_throws,TEXT
+pitch_dataframe,balls_count,BIGINT
+pitch_dataframe,strikes_count,BIGINT
+pitch_dataframe,game_year,BIGINT
+pitch_dataframe,runner_on_3b,DOUBLE PRECISION
+pitch_dataframe,runner_on_2b,DOUBLE PRECISION
+pitch_dataframe,runner_on_1b,DOUBLE PRECISION
+pitch_dataframe,outs_when_up,BIGINT
+pitch_dataframe,inning,BIGINT
+pitch_dataframe,inning_topbot,TEXT
+pitch_dataframe,pitch_name,TEXT
+pitch_dataframe,pitcher_name,TEXT
+pitch_dataframe,batter_name,TEXT
+pitch_dataframe,pitcher_home,BIGINT
+pitch_dataframe,batter_home,BIGINT
+pitch_dataframe,batter_team_name,TEXT
+pitch_dataframe,pitcher_team_name,TEXT
+pitch_dataframe,venue_name,TEXT
+pitch_dataframe,balls_in_play,BIGINT
+pitch_dataframe,starter,DOUBLE PRECISION
+pitch_dataframe,strike,BIGINT
+pitch_dataframe,ball,BIGINT
+pitch_dataframe,called_strike,BIGINT
+pitch_dataframe,swinging_strike,BIGINT
+pitch_dataframe,fouls,BIGINT
+pitch_dataframe,swings,BIGINT

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Demand DataBot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts & FontAwesome -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <!-- Custom CSS (your existing CSS is assumed to be working) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar with Suggested Questions -->
+    <aside class="sidebar">
+      <h2>Suggested Questions (Click+Enter to Ask!)</h2>
+      <ul id="suggestedQuestions">
+        <li data-question="Which restaurant is the best performing over the last 7 days?">
+          Which restaurant is the best performing over the last 7 days?
+        </li>
+        <li data-question="Which restaurant is the best performing in the previous month?">
+          Which restaurant is the best performing in the previous month?
+        </li>
+        <li data-question="Which restaurant is the best performing in the previous month - base the answer on the amount of revenue?">
+          Which restaurant is the best performing in the previous month - base the answer on the amount of revenue?
+        </li>
+        <li data-question="Which restaurant is the best performing in the previous month - base the answer on the number of bookings?">
+          Which restaurant is the best performing in the previous month - base the answer on the number of bookings?
+        </li>
+
+        <li data-question="Which restaurant is the best performing in the previous month - base the answer on the restaurant with the greatest percentage of capacity used?">
+          Which restaurant is the best performing in the previous month - base the answer on the restaurant with the greatest percentage of capacity used?
+        </li>
+        <li data-question="Which restaurant has taken the most money over all time?">
+          Which restaurant has taken the most money over all time?
+        </li>
+        <li data-question="Which restaurant has the greatest number of return customers?">
+          Which restaurant has the greatest number of return customers?
+        </li>
+        <li data-question="Which customer has visited the greatest number of restaurants?">
+          Which customer has visited the greatest number of restaurants?
+        </li>
+
+      </ul>
+    </aside>
+
+    <!-- Chat Area -->
+    <section class="msger">
+      <header class="msger-header">
+        <div class="msger-header-title"><i class="fas fa-robot"></i> DataBot</div>
+      </header>
+      <div class="msger-wrapper">
+        <main class="msger-chat" id="msgerChat">
+          <!-- Initial Bot Message -->
+          <div class="msg left-msg">
+            <div class="msg-img" style="background-image: "{{ url_for('static', filename='images/image.png') }}";"></div>
+            <div class="msg-bubble">
+              <div class="msg-info">
+                <div class="msg-info-name">DataBot</div>
+                <div class="msg-info-time">10:25 PM</div>
+              </div>
+              <div class="msg-text">
+                Hello! How can I assist you with CustomGPT Analytics today? Feel free to ask any questions about chatbot performance or user interaction metrics.
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+      <!-- Input Form -->
+      <form class="msger-inputarea" id="msgerForm">
+        <textarea class="msger-input" id="textInput" rows="1" placeholder="Enter your message (Shift+Enter for newline)"></textarea>
+        <button type="submit" class="msger-send-btn" id="sendBtn">Send</button>
+      </form>
+    </section>
+
+    <!-- Progress Box (hidden by default) -->
+    <div class="progress-box" id="progressBox" style="display: none;">
+      <h3>Working...</h3>
+      <ul id="progressSteps"></ul>
+    </div>
+  </div>
+  
+  <!-- External JS File -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
