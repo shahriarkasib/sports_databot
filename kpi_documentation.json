@@ -1,0 +1,236 @@
+{
+  "metadata": {
+    "title": "Baseball Analytics KPI Documentation",
+    "description": "This document defines common baseball KPIs with their calculations and sample SQL queries for MLB analytics. The KPIs cover batting, pitching, and advanced metrics.",
+    "database_type": "PostgreSQL (Redshift)",
+    "version": "1.0"
+  },
+  "category_list": [
+    {
+      "category": "Baseball Metrics",
+      "description": "KPIs covering MLB batting, pitching, and advanced metrics.",
+      "examples": [
+        "Batting Average (AVG)",
+        "On-Base Percentage (OBP)",
+        "Earned Run Average (ERA)",
+        "WHIP",
+        "K/BB Ratio",
+        "No Hitter",
+        "Whiff Rate"
+      ]
+    }
+  ],
+  "kpi_categories": [
+    {
+      "category": "Baseball Metrics",
+      "description": "Key performance indicators for MLB players covering both batting and pitching performance as well as advanced metrics derived from plate appearance and pitch data.",
+      "kpis": [
+        {
+          "name": "Hits (H)",
+          "description": "A hit is recorded when a batter reaches base via a single, double, triple, or home run. Use column h from mlb_batting_dataframe (or h_allowed from mlb_pitching_dataframe for opponents).",
+          "calculation": "SUM(h)",
+          "tables": ["mlb_batting_dataframe"],
+          "sample_query": "SELECT player_name, SUM(h) AS total_hits FROM mlb_batting_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY player_name ORDER BY total_hits DESC LIMIT 10;"
+        },
+        {
+          "name": "Errors (E)",
+          "description": "An error is charged to a fielder when they mishandle a ball allowing a batter or baserunner to advance or reach base when they otherwise would have been out. (Typically recorded in fielding data.)",
+          "calculation": "SUM(errors)",
+          "tables": ["mlb_fielding_dataframe"],
+          "sample_query": "SELECT player_name, SUM(errors) AS total_errors FROM mlb_fielding_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY player_name ORDER BY total_errors DESC LIMIT 10;"
+        },
+        {
+          "name": "At Bats (AB)",
+          "description": "At bat is every time the ball is hit into play or when a strikeout occurs (excluding walks, sacrifices, etc.).",
+          "calculation": "SUM(ab)",
+          "tables": ["mlb_batting_dataframe"],
+          "sample_query": "SELECT player_name, SUM(ab) AS total_at_bats FROM mlb_batting_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY player_name ORDER BY total_at_bats DESC LIMIT 10;"
+        },
+        {
+          "name": "Total Bases (TB)",
+          "description": "Total Bases are calculated as: singles*1 + doubles*2 + triples*3 + hr*4. (Note: singles can be derived as h - (doubles + triples + hr) if not provided.)",
+          "calculation": "SUM(singles) + 2*SUM(doubles) + 3*SUM(triples) + 4*SUM(hr)",
+          "tables": ["mlb_batting_dataframe"],
+          "sample_query": "SELECT player_name, (SUM(singles) + 2*SUM(doubles) + 3*SUM(triples) + 4*SUM(hr)) AS total_bases FROM mlb_batting_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY player_name ORDER BY total_bases DESC LIMIT 10;"
+        },
+        {
+          "name": "Runs (R)",
+          "description": "A run is scored when a player advances around the bases to reach home plate.",
+          "calculation": "SUM(r)",
+          "tables": ["mlb_batting_dataframe"],
+          "sample_query": "SELECT player_name, SUM(r) AS total_runs FROM mlb_batting_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY player_name ORDER BY total_runs DESC LIMIT 10;"
+        },
+        {
+          "name": "Runs Batted In (RBI)",
+          "description": "RBIs are credited to a batter when the result of their at bat results in a run scoring (except in cases of errors or ground into double plays).",
+          "calculation": "SUM(rbi)",
+          "tables": ["mlb_batting_dataframe"],
+          "sample_query": "SELECT player_name, SUM(rbi) AS total_rbi FROM mlb_batting_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY player_name ORDER BY total_rbi DESC LIMIT 10;"
+        },
+        {
+          "name": "Batting Average (AVG)",
+          "description": "Batting average is calculated by dividing a player's hits by their at bats.",
+          "calculation": "SUM(h) / NULLIF(SUM(ab), 0)",
+          "tables": ["mlb_batting_dataframe"],
+          "sample_query": "SELECT player_name, CAST(SUM(h) AS DECIMAL(10,3)) / NULLIF(SUM(ab), 0) AS batting_average FROM mlb_batting_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY player_name HAVING SUM(ab) >= 100 ORDER BY batting_average DESC LIMIT 10;"
+        },
+        {
+          "name": "On-Base Percentage (OBP)",
+          "description": "OBP measures how often a batter reaches base. Calculated as (H + BB + HBP) / (AB + BB + HBP + Sac_Fly).",
+          "calculation": "COALESCE((SUM(h) + SUM(bb) + SUM(hbp)) / NULLIF(SUM(ab) + SUM(bb) + SUM(hbp) + SUM(sac_fly), 0), 0)",
+          "tables": ["mlb_batting_dataframe"],
+          "sample_query": "SELECT player_name, COALESCE(CAST((SUM(h) + SUM(bb) + SUM(hbp)) AS DECIMAL(10,3)) / NULLIF((SUM(ab) + SUM(bb) + SUM(hbp) + SUM(sac_fly)), 0), 0) AS obp FROM mlb_batting_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY player_name HAVING SUM(ab) >= 100 ORDER BY obp DESC LIMIT 10;"
+        },
+        {
+          "name": "Slugging Percentage (SLG)",
+          "description": "SLG measures hitter power by dividing total bases by at bats.",
+          "calculation": "COALESCE((SUM(singles) + 2*SUM(doubles) + 3*SUM(triples) + 4*SUM(hr)) / NULLIF(SUM(ab), 0), 0)",
+          "tables": ["mlb_batting_dataframe"],
+          "sample_query": "SELECT player_name, COALESCE(CAST((SUM(singles) + 2*SUM(doubles) + 3*SUM(triples) + 4*SUM(hr)) AS DECIMAL(10,3)) / NULLIF(SUM(ab), 0), 0) AS slg FROM mlb_batting_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY player_name HAVING SUM(ab) >= 100 ORDER BY slg DESC LIMIT 10;"
+        },
+        {
+          "name": "Earned Run Average (ERA)",
+          "description": "ERA is the average number of earned runs a pitcher allows per nine innings pitched.",
+          "calculation": "(SUM(er) / NULLIF(SUM(ip), 0)) * 9",
+          "tables": ["mlb_pitching_dataframe"],
+          "sample_query": "SELECT pitcher_name, COALESCE(CAST(SUM(er) * 9 AS DECIMAL(10,2)) / NULLIF(SUM(ip), 0), 0) AS era FROM mlb_pitching_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY pitcher_name HAVING SUM(ip) >= 20 ORDER BY era ASC LIMIT 10;"
+        },
+        {
+          "name": "Strikeouts (K)",
+          "description": "A strikeout occurs when a batter accumulates three strikes during an at bat. For pitchers, this is the total strikeouts recorded.",
+          "calculation": "SUM(k)",
+          "tables": ["mlb_pitching_dataframe"],
+          "sample_query": "SELECT pitcher_name, COALESCE(SUM(k), 0) AS total_strikeouts FROM mlb_pitching_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY pitcher_name ORDER BY total_strikeouts DESC LIMIT 10;"
+        },
+        {
+          "name": "Walks (BB)",
+          "description": "A walk is awarded when a batter receives four balls during their at bat.",
+          "calculation": "SUM(bb)",
+          "tables": ["mlb_batting_dataframe"],
+          "sample_query": "SELECT player_name, SUM(bb) AS total_walks FROM mlb_batting_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY player_name ORDER BY total_walks DESC LIMIT 10;"
+        },
+        {
+          "name": "Plate Appearances (PA)",
+          "description": "Plate appearances count every time a player completes a turn batting (includes at bats, walks, hit-by-pitches, and sacrifices).",
+          "calculation": "SUM(pa)",
+          "tables": ["mlb_batting_dataframe"],
+          "sample_query": "SELECT player_name, SUM(pa) AS total_plate_appearances FROM mlb_batting_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY player_name ORDER BY total_plate_appearances DESC LIMIT 10;"
+        },
+        {
+          "name": "WHIP (Walks + Hits per Inning Pitched)",
+          "description": "WHIP measures the number of baserunners a pitcher allows per inning pitched.",
+          "calculation": "(SUM(bb) + SUM(h_allowed)) / NULLIF(SUM(ip), 0)",
+          "tables": ["mlb_pitching_dataframe"],
+          "sample_query": "SELECT pitcher_name, CAST((SUM(bb) + SUM(h_allowed)) AS DECIMAL(10,2)) / NULLIF(SUM(ip), 0) AS whip FROM mlb_pitching_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY pitcher_name HAVING SUM(ip) >= 20 ORDER BY whip ASC LIMIT 10;"
+        },
+        {
+          "name": "K/9 (Strikeout Rate)",
+          "description": "K/9 is the number of strikeouts a pitcher averages per nine innings pitched.",
+          "calculation": "(SUM(k) * 9) / NULLIF(SUM(ip), 0)",
+          "tables": ["mlb_pitching_dataframe"],
+          "sample_query": "SELECT pitcher_name, CAST(SUM(k) * 9 AS DECIMAL(10,2)) / NULLIF(SUM(ip), 0) AS k_per_9 FROM mlb_pitching_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY pitcher_name HAVING SUM(ip) >= 20 ORDER BY k_per_9 DESC LIMIT 10;"
+        },
+        {
+          "name": "BB/9 (Walk Rate)",
+          "description": "BB/9 is the number of walks a pitcher averages per nine innings pitched.",
+          "calculation": "(SUM(bb) * 9) / NULLIF(SUM(ip), 0)",
+          "tables": ["mlb_pitching_dataframe"],
+          "sample_query": "SELECT pitcher_name, CAST(SUM(bb) * 9 AS DECIMAL(10,2)) / NULLIF(SUM(ip), 0) AS bb_per_9 FROM mlb_pitching_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY pitcher_name HAVING SUM(ip) >= 20 ORDER BY bb_per_9 ASC LIMIT 10;"
+        },
+        {
+          "name": "K% (Strikeout Percentage)",
+          "description": "K% is the percentage of plate appearances that result in a strikeout for a pitcher.",
+          "calculation": "(SUM(k) / NULLIF(SUM(pa), 0)) * 100",
+          "tables": ["mlb_pitching_dataframe"],
+          "sample_query": "SELECT pitcher_name, CAST(SUM(k) AS DECIMAL(10,2)) / NULLIF(SUM(pa), 0) * 100 AS strikeout_percentage FROM mlb_pitching_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY pitcher_name HAVING SUM(pa) >= 20 ORDER BY strikeout_percentage DESC LIMIT 10;"
+        },
+        {
+          "name": "BB% (Walk Percentage)",
+          "description": "BB% is the percentage of plate appearances that result in a walk for a pitcher.",
+          "calculation": "(SUM(bb) / NULLIF(SUM(pa), 0)) * 100",
+          "tables": ["mlb_pitching_dataframe"],
+          "sample_query": "SELECT pitcher_name, CAST(SUM(bb) AS DECIMAL(10,2)) / NULLIF(SUM(pa), 0) * 100 AS walk_percentage FROM mlb_pitching_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY pitcher_name HAVING SUM(pa) >= 20 ORDER BY walk_percentage ASC LIMIT 10;"
+        },
+        {
+          "name": "K/BB (Strikeout-to-Walk Ratio)",
+          "description": "K/BB is the ratio of strikeouts to walks for a pitcher.",
+          "calculation": "SUM(k) / NULLIF(SUM(bb), 0)",
+          "tables": ["mlb_pitching_dataframe"],
+          "sample_query": "SELECT pitcher_name, CAST(SUM(k) AS DECIMAL(10,2)) / NULLIF(SUM(bb), 0) AS k_to_bb FROM mlb_pitching_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY pitcher_name HAVING SUM(bb) > 0 ORDER BY k_to_bb DESC LIMIT 10;"
+        },
+        {
+          "name": "Line Drive Percentage (LD%)",
+          "description": "LD% is the percentage of batted balls that are line drives.",
+          "calculation": "(SUM(line_drives) / NULLIF(SUM(balls_in_play), 0)) * 100",
+          "tables": ["plate_appearance_dataframe"],
+          "sample_query": "SELECT batter_name, CAST(SUM(line_drives) AS DECIMAL(10,2)) / NULLIF(SUM(balls_in_play), 0) * 100 AS ld_percentage FROM plate_appearance_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY batter_name HAVING SUM(balls_in_play) > 0 ORDER BY ld_percentage DESC LIMIT 10;"
+        },
+        {
+          "name": "Groundball Percentage (GB%)",
+          "description": "GB% is the percentage of batted balls that are groundballs.",
+          "calculation": "(SUM(groundballs) / NULLIF(SUM(balls_in_play), 0)) * 100",
+          "tables": ["plate_appearance_dataframe"],
+          "sample_query": "SELECT batter_name, CAST(SUM(groundballs) AS DECIMAL(10,2)) / NULLIF(SUM(balls_in_play), 0) * 100 AS gb_percentage FROM plate_appearance_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY batter_name HAVING SUM(balls_in_play) > 0 ORDER BY gb_percentage DESC LIMIT 10;"
+        },
+        {
+          "name": "Popup Percentage (IFFB%)",
+          "description": "IFFB% is the percentage of fly balls that are infield pop-ups.",
+          "calculation": "(SUM(infield_fly_balls) / NULLIF(SUM(fly_balls), 0)) * 100",
+          "tables": ["plate_appearance_dataframe"],
+          "sample_query": "SELECT batter_name, CAST(SUM(infield_fly_balls) AS DECIMAL(10,2)) / NULLIF(SUM(fly_balls), 0) * 100 AS iffb_percentage FROM plate_appearance_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY batter_name HAVING SUM(fly_balls) > 0 ORDER BY iffb_percentage DESC LIMIT 10;"
+        },
+        {
+          "name": "Flyball Percentage (FB%)",
+          "description": "FB% is the percentage of batted balls that are flyballs.",
+          "calculation": "(SUM(fly_balls) / NULLIF(SUM(balls_in_play), 0)) * 100",
+          "tables": ["plate_appearance_dataframe"],
+          "sample_query": "SELECT batter_name, CAST(SUM(fly_balls) AS DECIMAL(10,2)) / NULLIF(SUM(balls_in_play), 0) * 100 AS fb_percentage FROM plate_appearance_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY batter_name HAVING SUM(balls_in_play) > 0 ORDER BY fb_percentage DESC LIMIT 10;"
+        },
+        {
+          "name": "No Hitter",
+          "description": "A No Hitter is achieved when a pitcher throws at least 9 innings and gives up 0 hits.",
+          "calculation": "COUNT(*) for games with ip >= 9 AND h_allowed = 0",
+          "tables": ["mlb_pitching_dataframe"],
+          "sample_query": "SELECT pitcher_name, COUNT(*) AS no_hit_games FROM mlb_pitching_dataframe WHERE ip >= 9 AND h_allowed = 0 AND game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY pitcher_name ORDER BY no_hit_games DESC;"
+        },
+        {
+          "name": "Whiff Rate",
+          "description": "Whiff Rate is the percentage of swings that result in a swinging strike.",
+          "calculation": "(SUM(swinging_strike) / NULLIF(SUM(swings), 0)) * 100",
+          "tables": ["pitch_dataframe"],
+          "sample_query": "SELECT batter_name, CAST(SUM(swinging_strike) AS DECIMAL(10,2)) / NULLIF(SUM(swings), 0) * 100 AS whiff_rate FROM pitch_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY batter_name HAVING SUM(swings) > 0 ORDER BY whiff_rate DESC LIMIT 10;"
+        },
+        {
+          "name": "Strike Ratio",
+          "description": "Strike Ratio is calculated as the ratio of strikes thrown to the total of strikes plus balls.",
+          "calculation": "SUM(strike) / NULLIF(SUM(strike) + SUM(ball), 0)",
+          "tables": ["pitch_dataframe"],
+          "sample_query": "SELECT pitcher_name, CAST(SUM(strike) AS DECIMAL(10,2)) / NULLIF(SUM(strike) + SUM(ball), 0) AS strike_ratio FROM pitch_dataframe WHERE game_date BETWEEN '[start_date]' AND '[end_date]' GROUP BY pitcher_name HAVING SUM(strike) + SUM(ball) > 0 ORDER BY strike_ratio DESC LIMIT 10;"
+        }
+      ]
+    }
+  ],
+  "sql_generation_guidelines": {
+    "time_filtering": {
+      "custom_range": "WHERE game_date BETWEEN '[start_date]' AND '[end_date]'",
+      "last_days": "WHERE game_date >= CURRENT_DATE - INTERVAL '[days] days'"
+    },
+    "joining_guidance": {
+      "batting_pitching": "JOIN mlb_pitching_dataframe p ON b.game_date = p.game_date",
+      "plate_appearance_pitching": "JOIN mlb_pitching_dataframe p ON pa.pitcher_name = p.pitcher_name AND pa.pitcher_team_name = p.team_name"
+    },
+    "aggregation_guidance": {
+      "batting_average": "CAST(SUM(h) AS DECIMAL(10,3)) / NULLIF(SUM(ab), 0)",
+      "era": "CAST(SUM(er) * 9 AS DECIMAL(10,2)) / NULLIF(SUM(ip), 0)",
+      "whip": "CAST((SUM(bb) + SUM(h_allowed)) AS DECIMAL(10,2)) / NULLIF(SUM(ip), 0)"
+    },
+    "filtering_guidance": {
+      "qualified_batters": "HAVING SUM(ab) >= [threshold]",
+      "qualified_pitchers": "HAVING SUM(ip) >= [threshold]"
+    },
+    "performance_considerations": {
+      "limit_results": "Add LIMIT clauses to queries returning large result sets",
+      "consider_nulls": "Use NULLIF() to prevent division by zero errors"
+    }
+  }
+}

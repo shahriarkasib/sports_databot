@@ -1,552 +1,2019 @@
 {
-  "mlb_batting_dataframe": {
-    "table": "mlb_batting_dataframe",
-    "schema": "public",
-    "description": "Contains per-game hitting statistics for MLB batters. Each row represents a single game’s batting stats for one batter.",
-    "columns": [
-      {
-        "name": "player_name",
-        "type": "varchar",
-        "description": "Name of the batter."
-      },
-      {
-        "name": "team_name",
-        "type": "varchar",
-        "description": "Name of the team the batter played for in this game."
-      },
-      {
-        "name": "game_date",
-        "type": "date",
-        "description": "Date of the game."
-      },
-      {
-        "name": "ab",
-        "type": "integer",
-        "description": "Number of at-bats in the game."
-      },
-      {
-        "name": "h",
-        "type": "integer",
-        "description": "Number of hits in the game."
-      },
-      {
-        "name": "r",
-        "type": "integer",
-        "description": "Number of runs scored."
-      },
-      {
-        "name": "rbi",
-        "type": "integer",
-        "description": "Number of runs batted in."
-      },
-      {
-        "name": "hr",
-        "type": "integer",
-        "description": "Number of home runs."
-      },
-      {
-        "name": "avg",
-        "type": "float",
-        "description": "Batting average for that game (hits/at-bats)."
-      },
-      {
-        "name": "obp",
-        "type": "float",
-        "description": "On-base percentage for that game."
-      },
-      {
-        "name": "slg",
-        "type": "float",
-        "description": "Slugging percentage for that game."
-      },
-      {
-        "name": "ops",
-        "type": "float",
-        "description": "On-base plus slugging for that game."
-      },
-      {
-        "name": "bb",
-        "type": "integer",
-        "description": "Number of walks drawn."
-      },
-      {
-        "name": "k",
-        "type": "integer",
-        "description": "Number of strikeouts."
-      }
-    ]
-  },
-  "mlb_pitching_dataframe": {
-    "table": "mlb_pitching_dataframe",
-    "schema": "public",
-    "description": "Contains per-game pitching statistics for MLB pitchers. Each row represents a single game pitched by one pitcher.",
-    "columns": [
-      {
-        "name": "pitcher_name",
-        "type": "varchar",
-        "description": "Name of the pitcher."
-      },
-      {
-        "name": "team_name",
-        "type": "varchar",
-        "description": "Name of the pitcher’s team for this game."
-      },
-      {
-        "name": "game_date",
-        "type": "date",
-        "description": "Date of the game."
-      },
-      {
-        "name": "ip",
-        "type": "float",
-        "description": "Innings pitched in the game."
-      },
-      {
-        "name": "er",
-        "type": "integer",
-        "description": "Earned runs allowed in the game."
-      },
-      {
-        "name": "k",
-        "type": "integer",
-        "description": "Number of strikeouts recorded."
-      },
-      {
-        "name": "bb",
-        "type": "integer",
-        "description": "Walks allowed."
-      },
-      {
-        "name": "h_allowed",
-        "type": "integer",
-        "description": "Hits allowed."
-      },
-      {
-        "name": "hr_allowed",
-        "type": "integer",
-        "description": "Home runs allowed."
-      },
-      {
-        "name": "era",
-        "type": "float",
-        "description": "Earned Run Average for the game, scaled to 9 innings."
-      },
-      {
-        "name": "whip",
-        "type": "float",
-        "description": "Walks + Hits per inning pitched."
-      },
-      {
-        "name": "starter",
-        "type": "boolean",
-        "description": "Indicates if the pitcher was the starting pitcher (1) or a reliever (0)."
-      }
-    ]
-  },
-  "plate_appearance_dataframe": {
-    "table": "plate_appearance_dataframe",
-    "schema": "public",
-    "description": "Contains per plate appearance data in MLB. Each row is one matchup between a batter and a pitcher in a particular game situation.",
-    "columns": [
-      {
-        "name": "batter_name",
-        "type": "varchar",
-        "description": "Name of the batter in this plate appearance.",
-        "references": {
-          "table": "mlb_batting_dataframe",
-          "column": "player_name"
-        }
-      },
-      {
-        "name": "pitcher_name",
-        "type": "varchar",
-        "description": "Name of the pitcher in this plate appearance.",
-        "references": {
-          "table": "mlb_pitching_dataframe",
-          "column": "pitcher_name"
-        }
-      },
-      {
-        "name": "batter_team_name",
-        "type": "varchar",
-        "description": "Team of the batter.",
-        "references": {
-          "table": "mlb_batting_dataframe",
-          "column": "team_name"
-        }
-      },
-      {
-        "name": "pitcher_team_name",
-        "type": "varchar",
-        "description": "Team of the pitcher.",
-        "references": {
-          "table": "mlb_pitching_dataframe",
-          "column": "team_name"
-        }
-      },
-      {
-        "name": "p_throws",
-        "type": "varchar",
-        "description": "Pitcher’s throwing hand (R or L)."
-      },
-      {
-        "name": "inning",
-        "type": "integer",
-        "description": "Inning of this plate appearance."
-      },
-      {
-        "name": "event_type",
-        "type": "varchar",
-        "description": "Outcome of the plate appearance (e.g., single, double, HR, strikeout, walk)."
-      },
-      {
-        "name": "runners_on_base",
-        "type": "varchar",
-        "description": "Runner configuration on base before the plate appearance (e.g., 1B, 2B, 3B)."
-      },
-      {
-        "name": "outs",
-        "type": "integer",
-        "description": "Number of outs before this plate appearance."
-      },
-      {
-        "name": "pa_year",
-        "type": "integer",
-        "description": "Season (year) for the plate appearance."
-      },
-      {
-        "name": "starter",
-        "type": "boolean",
-        "description": "Indicates if the pitcher was a starter (1) or a reliever (0) for this appearance."
-      }
-    ]
-  },
-  "pitch_dataframe": {
-    "table": "pitch_dataframe",
-    "schema": "public",
-    "description": "Contains per pitch data in MLB. Each row represents a single pitch thrown by a pitcher against a specific batter.",
-    "columns": [
-      {
-        "name": "pitcher_name",
-        "type": "varchar",
-        "description": "Name of the pitcher.",
-        "references": {
-          "table": "plate_appearance_dataframe",
-          "column": "pitcher_name"
-        }
-      },
-      {
-        "name": "batter_name",
-        "type": "varchar",
-        "description": "Name of the batter.",
-        "references": {
-          "table": "plate_appearance_dataframe",
-          "column": "batter_name"
-        }
-      },
-      {
-        "name": "pitcher_team_name",
-        "type": "varchar",
-        "description": "Team of the pitcher.",
-        "references": {
-          "table": "plate_appearance_dataframe",
-          "column": "pitcher_team_name"
-        }
-      },
-      {
-        "name": "batter_team_name",
-        "type": "varchar",
-        "description": "Team of the batter.",
-        "references": {
-          "table": "plate_appearance_dataframe",
-          "column": "batter_team_name"
-        }
-      },
-      {
-        "name": "p_throws",
-        "type": "varchar",
-        "description": "Pitcher’s throwing hand (R or L)."
-      },
-      {
-        "name": "pitch_type",
-        "type": "varchar",
-        "description": "Type of the pitch (e.g., fastball, slider, curve)."
-      },
-      {
-        "name": "velocity",
-        "type": "float",
-        "description": "Pitch velocity in miles per hour (MPH)."
-      },
-      {
-        "name": "ball",
-        "type": "integer",
-        "description": "Indicates if the pitch was a ball (1) or not (0)."
-      },
-      {
-        "name": "strike",
-        "type": "integer",
-        "description": "Indicates if the pitch was a strike (1) or not (0)."
-      },
-      {
-        "name": "swinging_strike",
-        "type": "integer",
-        "description": "Indicates if the pitch was swung at and missed (1) or not (0)."
-      },
-      {
-        "name": "pitch_year",
-        "type": "integer",
-        "description": "Season (year) for this pitch."
-      },
-      {
-        "name": "starter",
-        "type": "boolean",
-        "description": "Indicates if the pitcher was a starter (1) or reliever (0)."
-      }
-    ]
-  },
-  "nfl_main_df": {
-    "table": "nfl_main_df",
-    "schema": "public",
-    "description": "Contains per-game stats for NFL players. Each row represents one player’s performance in a single game.",
-    "columns": [
-      {
-        "name": "player_name",
-        "type": "varchar",
-        "description": "Name of the player."
-      },
-      {
-        "name": "team_name",
-        "type": "varchar",
-        "description": "Name of the player’s team."
-      },
-      {
-        "name": "opponent_team_name",
-        "type": "varchar",
-        "description": "Name of the opposing team."
-      },
-      {
-        "name": "game_date",
-        "type": "date",
-        "description": "Date of the game."
-      },
-      {
-        "name": "passing_yards",
-        "type": "integer",
-        "description": "Total passing yards (commonly used for quarterbacks)."
-      },
-      {
-        "name": "rushing_yards",
-        "type": "integer",
-        "description": "Total rushing yards (often used for running backs or other positions)."
-      },
-      {
-        "name": "receiving_yards",
-        "type": "integer",
-        "description": "Total receiving yards (often for wide receivers or tight ends)."
-      },
-      {
-        "name": "touchdowns",
-        "type": "integer",
-        "description": "Total touchdowns in the game (passing, rushing, or receiving)."
-      },
-      {
-        "name": "home",
-        "type": "boolean",
-        "description": "Indicates if the team was at home (1) or away (0)."
-      },
-      {
-        "name": "passes",
-        "type": "integer",
-        "description": "Number of pass attempts (used for QB threshold)."
-      },
-      {
-        "name": "targets",
-        "type": "integer",
-        "description": "Number of pass targets (used for receiver threshold)."
-      },
-      {
-        "name": "carries",
-        "type": "integer",
-        "description": "Number of rushing attempts (used for RB threshold)."
-      },
-      {
-        "name": "season_year",
-        "type": "integer",
-        "description": "Season (year) for the game."
-      }
-    ]
-  },
-  "nfl_play_by_play": {
-    "table": "nfl_play_by_play",
-    "schema": "public",
-    "description": "Contains down-by-down details for NFL games. Each row is one play from a specific game.",
-    "columns": [
-      {
-        "name": "game_datetime",
-        "type": "timestamp",
-        "description": "Start time of the game."
-      },
-      {
-        "name": "quarter",
-        "type": "integer",
-        "description": "Which quarter the play took place (1-4, possibly OT)."
-      },
-      {
-        "name": "game_seconds_remaining",
-        "type": "integer",
-        "description": "How many seconds remain in the game at the start of this play."
-      },
-      {
-        "name": "down",
-        "type": "integer",
-        "description": "Which down (1st, 2nd, 3rd, 4th)."
-      },
-      {
-        "name": "yards_to_go",
-        "type": "integer",
-        "description": "Yards needed for a 1st down on this play."
-      },
-      {
-        "name": "yards_to_endzone",
-        "type": "integer",
-        "description": "Yards remaining to reach the end zone on this play."
-      },
-      {
-        "name": "play_description",
-        "type": "varchar",
-        "description": "Textual description of the play’s outcome."
-      },
-      {
-        "name": "home",
-        "type": "boolean",
-        "description": "Indicates if the offensive team is at home (1) or away (0)."
-      },
-      {
-        "name": "season_year",
-        "type": "integer",
-        "description": "Season (year) for the play."
-      }
-    ]
-  },
   "nba_main_dataframe": {
     "table": "nba_main_dataframe",
     "schema": "public",
-    "description": "Contains per-game stats for NBA players. Each row represents one player’s performance in a single game.",
+    "description": "Contains per-game advanced statistics for NBA players, including shooting, rebounding, playmaking, and game context metrics.",
     "columns": [
       {
-        "name": "player_name",
-        "type": "varchar",
-        "description": "Name of the NBA player."
+        "name": "three_pointer_attempt",
+        "type": "DOUBLE PRECISION",
+        "description": "Number of three-point attempts."
       },
       {
-        "name": "team_name",
-        "type": "varchar",
-        "description": "Player’s team name."
-      },
-      {
-        "name": "opponent_name",
-        "type": "varchar",
-        "description": "The opposing team in this game."
-      },
-      {
-        "name": "season",
-        "type": "integer",
-        "description": "Season (year) of the game."
-      },
-      {
-        "name": "game_date",
-        "type": "date",
-        "description": "Date of the game."
-      },
-      {
-        "name": "pts",
-        "type": "integer",
-        "description": "Total points scored by the player."
-      },
-      {
-        "name": "reb",
-        "type": "integer",
-        "description": "Total rebounds by the player."
+        "name": "three_pointer_made",
+        "type": "DOUBLE PRECISION",
+        "description": "Number of three-pointers made."
       },
       {
         "name": "ast",
-        "type": "integer",
-        "description": "Total assists by the player."
+        "type": "DOUBLE PRECISION",
+        "description": "Assists recorded in the game."
+      },
+      {
+        "name": "avg_speed",
+        "type": "DOUBLE PRECISION",
+        "description": "Average speed during the game."
       },
       {
         "name": "blk",
-        "type": "integer",
-        "description": "Total blocks by the player."
+        "type": "DOUBLE PRECISION",
+        "description": "Total blocks."
       },
       {
-        "name": "stl",
-        "type": "integer",
-        "description": "Total steals by the player."
+        "name": "blka",
+        "type": "DOUBLE PRECISION",
+        "description": "Block attempts."
       },
       {
-        "name": "min",
-        "type": "float",
-        "description": "Number of minutes the player was on the court."
+        "name": "catch_shoot_pts",
+        "type": "DOUBLE PRECISION",
+        "description": "Points scored on catch-and-shoot opportunities."
+      },
+      {
+        "name": "dist_feet",
+        "type": "DOUBLE PRECISION",
+        "description": "Distance (in feet) related to the play (e.g., shot distance)."
+      },
+      {
+        "name": "dreb",
+        "type": "DOUBLE PRECISION",
+        "description": "Defensive rebounds."
+      },
+      {
+        "name": "drive_pts",
+        "type": "DOUBLE PRECISION",
+        "description": "Points scored on drives."
+      },
+      {
+        "name": "elbow_touch_pts",
+        "type": "DOUBLE PRECISION",
+        "description": "Points scored following elbow touches."
       },
       {
         "name": "fga",
-        "type": "integer",
-        "description": "Number of field goal attempts."
+        "type": "DOUBLE PRECISION",
+        "description": "Field goal attempts."
       },
       {
         "name": "fgm",
-        "type": "integer",
-        "description": "Number of field goals made."
+        "type": "DOUBLE PRECISION",
+        "description": "Field goals made."
+      },
+      {
+        "name": "fta",
+        "type": "DOUBLE PRECISION",
+        "description": "Free throw attempts."
+      },
+      {
+        "name": "ftm",
+        "type": "DOUBLE PRECISION",
+        "description": "Free throws made."
+      },
+      {
+        "name": "game_date",
+        "type": "TIMESTAMP",
+        "description": "Date and time when the game was played."
+      },
+      {
+        "name": "min",
+        "type": "DOUBLE PRECISION",
+        "description": "Minutes played by the player."
+      },
+      {
+        "name": "pie_adv",
+        "type": "DOUBLE PRECISION",
+        "description": "Advanced performance index (PIE) metric."
+      },
+      {
+        "name": "pf",
+        "type": "DOUBLE PRECISION",
+        "description": "Personal fouls committed."
+      },
+      {
+        "name": "plus_minus",
+        "type": "DOUBLE PRECISION",
+        "description": "Plus-minus rating."
+      },
+      {
+        "name": "positions",
+        "type": "TEXT",
+        "description": "Player position(s) during the game."
+      },
+      {
+        "name": "poss_adv",
+        "type": "BIGINT",
+        "description": "Advanced possession metric."
+      },
+      {
+        "name": "post_touch_pts",
+        "type": "DOUBLE PRECISION",
+        "description": "Points scored after receiving a post touch."
+      },
+      {
+        "name": "pts",
+        "type": "DOUBLE PRECISION",
+        "description": "Total points scored."
+      },
+      {
+        "name": "pts_2nd_chance",
+        "type": "DOUBLE PRECISION",
+        "description": "Points scored on second-chance opportunities."
+      },
+      {
+        "name": "pts_fb",
+        "type": "DOUBLE PRECISION",
+        "description": "Points scored on fast breaks."
+      },
+      {
+        "name": "pts_off_tov",
+        "type": "DOUBLE PRECISION",
+        "description": "Points scored off turnovers."
+      },
+      {
+        "name": "tov",
+        "type": "DOUBLE PRECISION",
+        "description": "Turnovers committed."
+      },
+      {
+        "name": "pts_paint",
+        "type": "DOUBLE PRECISION",
+        "description": "Points scored in the paint."
+      },
+      {
+        "name": "pull_up_pts",
+        "type": "DOUBLE PRECISION",
+        "description": "Points scored on pull-up shots."
+      },
+      {
+        "name": "reb",
+        "type": "DOUBLE PRECISION",
+        "description": "Total rebounds (offensive and defensive)."
+      },
+      {
+        "name": "reb_chances",
+        "type": "DOUBLE PRECISION",
+        "description": "Opportunities for rebounds."
+      },
+      {
+        "name": "starter",
+        "type": "BIGINT",
+        "description": "Indicator if the player was in the starting lineup."
+      },
+      {
+        "name": "stl",
+        "type": "DOUBLE PRECISION",
+        "description": "Steals recorded."
+      },
+      {
+        "name": "tchs_tracker",
+        "type": "BIGINT",
+        "description": "Metric tracking player touches."
+      },
+      {
+        "name": "usg_pct",
+        "type": "DOUBLE PRECISION",
+        "description": "Usage percentage."
+      },
+      {
+        "name": "player_name",
+        "type": "TEXT",
+        "description": "Name of the player."
+      },
+      {
+        "name": "playoffs",
+        "type": "BIGINT",
+        "description": "Indicator if the game was a playoff game."
+      },
+      {
+        "name": "regular_season",
+        "type": "BIGINT",
+        "description": "Indicator if the game was a regular season game."
+      },
+      {
+        "name": "home",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator for a home game (e.g., 1 for home, 0 for away)."
+      },
+      {
+        "name": "season",
+        "type": "BIGINT",
+        "description": "Season year."
+      },
+      {
+        "name": "team_name",
+        "type": "TEXT",
+        "description": "Name of the player's team."
+      },
+      {
+        "name": "opponent_name",
+        "type": "TEXT",
+        "description": "Name of the opposing team."
       }
     ]
   },
   "nba_play_by_play": {
     "table": "nba_play_by_play",
     "schema": "public",
-    "description": "Contains per-play details for NBA games. Each row is a single play from a particular game.",
+    "description": "Contains play-by-play details for NBA games, capturing in-game events and player actions.",
     "columns": [
       {
-        "name": "season",
-        "type": "integer",
-        "description": "Season (year) of the play."
-      },
-      {
         "name": "quarter",
-        "type": "integer",
-        "description": "Which quarter the play took place (1-4, possibly OT)."
+        "type": "BIGINT",
+        "description": "Current quarter of the game."
       },
       {
-        "name": "time_remaining",
-        "type": "varchar",
-        "description": "Time remaining in the quarter (MM:SS format)."
+        "name": "game_date",
+        "type": "TIMESTAMP",
+        "description": "Date and time of the game."
       },
       {
-        "name": "offense_player_name",
-        "type": "varchar",
-        "description": "Player involved in the offensive action (e.g., scoring, passing).",
-        "references": {
-          "table": "nba_main_dataframe",
-          "column": "player_name"
-        }
+        "name": "playoffs",
+        "type": "BIGINT",
+        "description": "Indicator for a playoff game."
+      },
+      {
+        "name": "regular_season",
+        "type": "BIGINT",
+        "description": "Indicator for a regular season game."
+      },
+      {
+        "name": "season_id",
+        "type": "BIGINT",
+        "description": "Unique season identifier."
+      },
+      {
+        "name": "three_pointer_attempt",
+        "type": "BIGINT",
+        "description": "Three-point attempt during the play."
+      },
+      {
+        "name": "three_pointer_made",
+        "type": "BIGINT",
+        "description": "Three-pointer made during the play."
+      },
+      {
+        "name": "ast",
+        "type": "BIGINT",
+        "description": "Assists recorded during the play."
+      },
+      {
+        "name": "reb",
+        "type": "BIGINT",
+        "description": "Rebounds recorded during the play."
+      },
+      {
+        "name": "fga",
+        "type": "BIGINT",
+        "description": "Field goal attempts during the play."
+      },
+      {
+        "name": "fgm",
+        "type": "BIGINT",
+        "description": "Field goals made during the play."
+      },
+      {
+        "name": "fta",
+        "type": "BIGINT",
+        "description": "Free throw attempts during the play."
+      },
+      {
+        "name": "ftm",
+        "type": "BIGINT",
+        "description": "Free throws made during the play."
+      },
+      {
+        "name": "dunk",
+        "type": "BIGINT",
+        "description": "Indicator for a dunk play."
+      },
+      {
+        "name": "pf",
+        "type": "BIGINT",
+        "description": "Personal fouls recorded during the play."
+      },
+      {
+        "name": "tov",
+        "type": "BIGINT",
+        "description": "Turnovers committed during the play."
+      },
+      {
+        "name": "pts",
+        "type": "BIGINT",
+        "description": "Points scored during the play."
+      },
+      {
+        "name": "stl",
+        "type": "BIGINT",
+        "description": "Steals during the play."
+      },
+      {
+        "name": "blk",
+        "type": "BIGINT",
+        "description": "Blocks during the play."
+      },
+      {
+        "name": "shooter_player_name",
+        "type": "TEXT",
+        "description": "Name of the shooter involved in the play."
+      },
+      {
+        "name": "assist_player_name",
+        "type": "TEXT",
+        "description": "Name of the player credited with an assist."
+      },
+      {
+        "name": "rebound_player_name",
+        "type": "TEXT",
+        "description": "Name of the player who secured the rebound."
+      },
+      {
+        "name": "defender_player_name",
+        "type": "TEXT",
+        "description": "Name of the defender involved in the play."
+      },
+      {
+        "name": "possession_team_name",
+        "type": "TEXT",
+        "description": "Name of the team in possession during the play."
       },
       {
         "name": "defense_team_name",
-        "type": "varchar",
-        "description": "Defending team name.",
-        "references": {
-          "table": "nba_main_dataframe",
-          "column": "opponent_name"
-        }
+        "type": "TEXT",
+        "description": "Name of the defensive team."
       },
       {
-        "name": "play_description",
-        "type": "varchar",
-        "description": "Text describing the play."
+        "name": "quarter_seconds_remaining",
+        "type": "BIGINT",
+        "description": "Seconds remaining in the quarter."
       },
       {
-        "name": "event_type",
-        "type": "varchar",
-        "description": "Type of play (e.g., shot made, turnover, foul, assist, rebound)."
+        "name": "game_seconds_remaining",
+        "type": "BIGINT",
+        "description": "Seconds remaining in the game."
+      },
+      {
+        "name": "season",
+        "type": "BIGINT",
+        "description": "Season year."
+      }
+    ]
+  },
+  "nfl_main_df": {
+    "table": "nfl_main_df",
+    "schema": "public",
+    "description": "Contains per-game statistics for NFL players, including passing, rushing, receiving, and game context data.",
+    "columns": [
+      {
+        "name": "player_name",
+        "type": "TEXT",
+        "description": "Name of the NFL player."
+      },
+      {
+        "name": "position",
+        "type": "TEXT",
+        "description": "Player's position."
+      },
+      {
+        "name": "player_team_name",
+        "type": "TEXT",
+        "description": "Team the player belongs to."
+      },
+      {
+        "name": "season",
+        "type": "BIGINT",
+        "description": "Season year."
+      },
+      {
+        "name": "week",
+        "type": "BIGINT",
+        "description": "Week number of the season."
+      },
+      {
+        "name": "completions",
+        "type": "BIGINT",
+        "description": "Number of completed passes."
+      },
+      {
+        "name": "attempts",
+        "type": "BIGINT",
+        "description": "Number of passing attempts."
+      },
+      {
+        "name": "passing_yards",
+        "type": "DOUBLE PRECISION",
+        "description": "Total passing yards."
+      },
+      {
+        "name": "passing_tds",
+        "type": "BIGINT",
+        "description": "Total passing touchdowns."
+      },
+      {
+        "name": "interceptions",
+        "type": "DOUBLE PRECISION",
+        "description": "Interceptions thrown."
+      },
+      {
+        "name": "sacks",
+        "type": "DOUBLE PRECISION",
+        "description": "Number of sacks taken."
+      },
+      {
+        "name": "sack_yards",
+        "type": "DOUBLE PRECISION",
+        "description": "Total yards lost due to sacks."
+      },
+      {
+        "name": "sack_fumbles",
+        "type": "BIGINT",
+        "description": "Fumbles incurred due to sacks."
+      },
+      {
+        "name": "sack_fumbles_lost",
+        "type": "BIGINT",
+        "description": "Fumbles lost on sacks."
+      },
+      {
+        "name": "passing_air_yards",
+        "type": "DOUBLE PRECISION",
+        "description": "Air yards on passing plays."
+      },
+      {
+        "name": "passing_yards_after_catch",
+        "type": "DOUBLE PRECISION",
+        "description": "Yards gained after the catch."
+      },
+      {
+        "name": "passing_epa",
+        "type": "DOUBLE PRECISION",
+        "description": "Expected points added from passing plays."
+      },
+      {
+        "name": "passing_2pt_conversions",
+        "type": "BIGINT",
+        "description": "Number of passing two-point conversions."
+      },
+      {
+        "name": "dakota",
+        "type": "DOUBLE PRECISION",
+        "description": "Dakota metric (context-specific)."
+      },
+      {
+        "name": "carries",
+        "type": "BIGINT",
+        "description": "Number of rushing attempts."
+      },
+      {
+        "name": "rushing_yards",
+        "type": "DOUBLE PRECISION",
+        "description": "Total rushing yards."
+      },
+      {
+        "name": "rushing_tds",
+        "type": "BIGINT",
+        "description": "Total rushing touchdowns."
+      },
+      {
+        "name": "rushing_fumbles",
+        "type": "DOUBLE PRECISION",
+        "description": "Rushing fumbles committed."
+      },
+      {
+        "name": "rushing_fumbles_lost",
+        "type": "DOUBLE PRECISION",
+        "description": "Rushing fumbles lost."
+      },
+      {
+        "name": "rushing_epa",
+        "type": "DOUBLE PRECISION",
+        "description": "Expected points added from rushing plays."
+      },
+      {
+        "name": "rushing_2pt_conversions",
+        "type": "BIGINT",
+        "description": "Rushing two-point conversions."
+      },
+      {
+        "name": "receptions",
+        "type": "BIGINT",
+        "description": "Number of receptions."
+      },
+      {
+        "name": "targets",
+        "type": "BIGINT",
+        "description": "Number of pass targets."
+      },
+      {
+        "name": "receiving_yards",
+        "type": "DOUBLE PRECISION",
+        "description": "Total receiving yards."
+      },
+      {
+        "name": "receiving_tds",
+        "type": "BIGINT",
+        "description": "Receiving touchdowns."
+      },
+      {
+        "name": "receiving_fumbles",
+        "type": "DOUBLE PRECISION",
+        "description": "Receiving fumbles committed."
+      },
+      {
+        "name": "receiving_fumbles_lost",
+        "type": "DOUBLE PRECISION",
+        "description": "Receiving fumbles lost."
+      },
+      {
+        "name": "receiving_air_yards",
+        "type": "DOUBLE PRECISION",
+        "description": "Air yards on receiving plays."
+      },
+      {
+        "name": "receiving_yards_after_catch",
+        "type": "DOUBLE PRECISION",
+        "description": "Yards gained after the catch on receiving plays."
+      },
+      {
+        "name": "receiving_epa",
+        "type": "DOUBLE PRECISION",
+        "description": "Expected points added from receiving plays."
+      },
+      {
+        "name": "receiving_2pt_conversions",
+        "type": "BIGINT",
+        "description": "Receiving two-point conversions."
+      },
+      {
+        "name": "special_teams_tds",
+        "type": "DOUBLE PRECISION",
+        "description": "Touchdowns scored on special teams."
+      },
+      {
+        "name": "opponent_team",
+        "type": "TEXT",
+        "description": "Abbreviation or identifier for the opponent team."
+      },
+      {
+        "name": "opponent_team_name",
+        "type": "TEXT",
+        "description": "Full name of the opponent team."
+      },
+      {
+        "name": "temp",
+        "type": "DOUBLE PRECISION",
+        "description": "Temperature during the game."
+      },
+      {
+        "name": "wind",
+        "type": "DOUBLE PRECISION",
+        "description": "Wind speed during the game."
+      },
+      {
+        "name": "stadium",
+        "type": "TEXT",
+        "description": "Name of the stadium where the game was played."
+      },
+      {
+        "name": "game_date",
+        "type": "TIMESTAMP",
+        "description": "Date and time of the game."
+      },
+      {
+        "name": "game_type",
+        "type": "TEXT",
+        "description": "Type of the game (e.g., regular season, playoff)."
+      },
+      {
+        "name": "weekday",
+        "type": "TEXT",
+        "description": "Day of the week the game was played."
+      },
+      {
+        "name": "game_datetime",
+        "type": "TIMESTAMP",
+        "description": "Exact game start datetime."
+      },
+      {
+        "name": "overtime",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator or duration of overtime."
+      },
+      {
+        "name": "home",
+        "type": "BIGINT",
+        "description": "Indicator if the team was playing at home."
+      },
+      {
+        "name": "starting_qb",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator for the starting quarterback."
+      },
+      {
+        "name": "playoffs",
+        "type": "BIGINT",
+        "description": "Indicator if the game was a playoff game."
+      },
+      {
+        "name": "no_huddle_pass_attempts",
+        "type": "DOUBLE PRECISION",
+        "description": "No-huddle pass attempts."
+      },
+      {
+        "name": "no_huddle_completions",
+        "type": "DOUBLE PRECISION",
+        "description": "No-huddle pass completions."
+      },
+      {
+        "name": "qb_dropback_pass_attempts",
+        "type": "DOUBLE PRECISION",
+        "description": "QB dropback pass attempts."
+      },
+      {
+        "name": "qb_dropback_completions",
+        "type": "DOUBLE PRECISION",
+        "description": "QB dropback pass completions."
+      },
+      {
+        "name": "qb_hit_pass_attempts",
+        "type": "DOUBLE PRECISION",
+        "description": "Pass attempts where the QB was hit."
+      },
+      {
+        "name": "qb_hit_completions",
+        "type": "DOUBLE PRECISION",
+        "description": "Pass completions when the QB was hit."
+      },
+      {
+        "name": "qb_scramble_pass_attempts",
+        "type": "DOUBLE PRECISION",
+        "description": "Pass attempts during a scramble."
+      },
+      {
+        "name": "qb_scramble_completions",
+        "type": "DOUBLE PRECISION",
+        "description": "Scramble pass completions."
+      },
+      {
+        "name": "short_completions",
+        "type": "DOUBLE PRECISION",
+        "description": "Short completions."
+      },
+      {
+        "name": "deep_completions",
+        "type": "DOUBLE PRECISION",
+        "description": "Deep pass completions."
+      },
+      {
+        "name": "short_pass_attempts",
+        "type": "DOUBLE PRECISION",
+        "description": "Short pass attempts."
+      },
+      {
+        "name": "deep_pass_attempts",
+        "type": "DOUBLE PRECISION",
+        "description": "Deep pass attempts."
+      },
+      {
+        "name": "right_pass_attempts",
+        "type": "DOUBLE PRECISION",
+        "description": "Pass attempts directed to the right."
+      },
+      {
+        "name": "middle_pass_attempts",
+        "type": "DOUBLE PRECISION",
+        "description": "Pass attempts directed through the middle."
+      },
+      {
+        "name": "left_pass_attempts",
+        "type": "DOUBLE PRECISION",
+        "description": "Pass attempts directed to the left."
+      },
+      {
+        "name": "right_completions",
+        "type": "DOUBLE PRECISION",
+        "description": "Completions on the right side."
+      },
+      {
+        "name": "middle_completions",
+        "type": "DOUBLE PRECISION",
+        "description": "Completions through the middle."
+      },
+      {
+        "name": "left_completions",
+        "type": "DOUBLE PRECISION",
+        "description": "Completions on the left side."
+      },
+      {
+        "name": "longest_completion",
+        "type": "DOUBLE PRECISION",
+        "description": "Longest pass completion in the game."
+      },
+      {
+        "name": "right_targets",
+        "type": "DOUBLE PRECISION",
+        "description": "Targets directed to the right."
+      },
+      {
+        "name": "middle_targets",
+        "type": "DOUBLE PRECISION",
+        "description": "Targets through the middle."
+      },
+      {
+        "name": "left_targets",
+        "type": "DOUBLE PRECISION",
+        "description": "Targets directed to the left."
+      },
+      {
+        "name": "right_receptions",
+        "type": "DOUBLE PRECISION",
+        "description": "Receptions made on the right side."
+      },
+      {
+        "name": "middle_receptions",
+        "type": "DOUBLE PRECISION",
+        "description": "Receptions made through the middle."
+      },
+      {
+        "name": "left_receptions",
+        "type": "DOUBLE PRECISION",
+        "description": "Receptions made on the left side."
+      },
+      {
+        "name": "short_receptions",
+        "type": "DOUBLE PRECISION",
+        "description": "Short receptions."
+      },
+      {
+        "name": "deep_receptions",
+        "type": "DOUBLE PRECISION",
+        "description": "Deep receptions."
+      },
+      {
+        "name": "short_targets",
+        "type": "DOUBLE PRECISION",
+        "description": "Short pass targets."
+      },
+      {
+        "name": "deep_targets",
+        "type": "DOUBLE PRECISION",
+        "description": "Deep pass targets."
+      },
+      {
+        "name": "longest_reception",
+        "type": "DOUBLE PRECISION",
+        "description": "Longest reception in the game."
+      }
+    ]
+  },
+  "nfl_play_by_play": {
+    "table": "nfl_play_by_play",
+    "schema": "public",
+    "description": "Contains detailed, down-by-down play data for NFL games, including various tactical and game situation metrics.",
+    "columns": [
+      {
+        "name": "playoffs",
+        "type": "BIGINT",
+        "description": "Indicator if the play occurred during the playoffs."
+      },
+      {
+        "name": "week",
+        "type": "BIGINT",
+        "description": "Week number of the NFL season."
+      },
+      {
+        "name": "possession_home",
+        "type": "BIGINT",
+        "description": "Indicator if the home team was in possession."
+      },
+      {
+        "name": "yards_to_endzone",
+        "type": "DOUBLE PRECISION",
+        "description": "Yards remaining to reach the end zone."
+      },
+      {
+        "name": "game_date",
+        "type": "TIMESTAMP",
+        "description": "Date and time of the game."
+      },
+      {
+        "name": "quarter_seconds_remaining",
+        "type": "DOUBLE PRECISION",
+        "description": "Seconds remaining in the current quarter."
+      },
+      {
+        "name": "game_seconds_remaining",
+        "type": "DOUBLE PRECISION",
+        "description": "Seconds remaining in the game."
+      },
+      {
+        "name": "quarter",
+        "type": "DOUBLE PRECISION",
+        "description": "Current quarter of the game."
+      },
+      {
+        "name": "down",
+        "type": "DOUBLE PRECISION",
+        "description": "Current down."
+      },
+      {
+        "name": "yards_to_fist_down",
+        "type": "DOUBLE PRECISION",
+        "description": "Yards needed for a first down."
+      },
+      {
+        "name": "yards_gained",
+        "type": "DOUBLE PRECISION",
+        "description": "Yards gained on the play."
+      },
+      {
+        "name": "shotgun",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if the play was executed from a shotgun formation."
+      },
+      {
+        "name": "no_huddle",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if the play was run without a huddle."
+      },
+      {
+        "name": "qb_dropback",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator for a quarterback dropback."
+      },
+      {
+        "name": "qb_kneel",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator for a quarterback kneel-down."
+      },
+      {
+        "name": "qb_spike",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator for a quarterback spike."
+      },
+      {
+        "name": "qb_scramble",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator for a quarterback scramble."
+      },
+      {
+        "name": "air_yards",
+        "type": "DOUBLE PRECISION",
+        "description": "Air yards on the play."
+      },
+      {
+        "name": "yards_after_catch",
+        "type": "DOUBLE PRECISION",
+        "description": "Yards gained after the catch."
+      },
+      {
+        "name": "touchdown_team_name",
+        "type": "TEXT",
+        "description": "Name of the team that scored a touchdown."
+      },
+      {
+        "name": "possession_team_score",
+        "type": "DOUBLE PRECISION",
+        "description": "Score of the team in possession."
+      },
+      {
+        "name": "defense_team_score",
+        "type": "DOUBLE PRECISION",
+        "description": "Score of the defensive team."
+      },
+      {
+        "name": "score_differential",
+        "type": "DOUBLE PRECISION",
+        "description": "Score differential at the time of the play."
+      },
+      {
+        "name": "first_down_rush",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a first down was achieved via rushing."
+      },
+      {
+        "name": "first_down_pass",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a first down was achieved via passing."
+      },
+      {
+        "name": "first_down_penalty",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a penalty resulted in a first down."
+      },
+      {
+        "name": "third_down_converted",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if third down was successfully converted."
+      },
+      {
+        "name": "third_down_failed",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if the third down attempt failed."
+      },
+      {
+        "name": "fourth_down_converted",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if fourth down was successfully converted."
+      },
+      {
+        "name": "fourth_down_failed",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if the fourth down attempt failed."
+      },
+      {
+        "name": "interception",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if an interception occurred on the play."
+      },
+      {
+        "name": "safety",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a safety was recorded."
+      },
+      {
+        "name": "penalty",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a penalty occurred on the play."
+      },
+      {
+        "name": "tackled_for_loss",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if the play resulted in a loss due to a tackle."
+      },
+      {
+        "name": "qb_hit",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if the quarterback was hit on the play."
+      },
+      {
+        "name": "pass_attempt",
+        "type": "DOUBLE PRECISION",
+        "description": "Number of pass attempts on the play."
+      },
+      {
+        "name": "sack",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a sack occurred."
+      },
+      {
+        "name": "pass_touchdown",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a passing touchdown was scored."
+      },
+      {
+        "name": "rush_touchdown",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a rushing touchdown was scored."
+      },
+      {
+        "name": "return_touchdown",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a return touchdown was scored."
+      },
+      {
+        "name": "field_goal_attempt",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a field goal was attempted."
+      },
+      {
+        "name": "kickoff_attempt",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a kickoff was attempted."
+      },
+      {
+        "name": "punt_attempt",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a punt was attempted."
+      },
+      {
+        "name": "fumble",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a fumble occurred."
+      },
+      {
+        "name": "complete_pass",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a pass was completed."
+      },
+      {
+        "name": "penalty_team_name",
+        "type": "TEXT",
+        "description": "Name of the team that committed the penalty."
+      },
+      {
+        "name": "penalty_yards",
+        "type": "DOUBLE PRECISION",
+        "description": "Yards penalized on the play."
+      },
+      {
+        "name": "right_rush",
+        "type": "BIGINT",
+        "description": "Rush attempts directed to the right."
+      },
+      {
+        "name": "middle_rush",
+        "type": "BIGINT",
+        "description": "Rush attempts directed through the middle."
+      },
+      {
+        "name": "left_rush",
+        "type": "BIGINT",
+        "description": "Rush attempts directed to the left."
+      },
+      {
+        "name": "right_pass_attempt",
+        "type": "BIGINT",
+        "description": "Pass attempts directed to the right."
+      },
+      {
+        "name": "middle_pass_attempt",
+        "type": "BIGINT",
+        "description": "Pass attempts through the middle."
+      },
+      {
+        "name": "left_pass_attempt",
+        "type": "BIGINT",
+        "description": "Pass attempts directed to the left."
+      },
+      {
+        "name": "short_pass_attempt",
+        "type": "BIGINT",
+        "description": "Short pass attempts."
+      },
+      {
+        "name": "deep_pass_attempt",
+        "type": "BIGINT",
+        "description": "Deep pass attempts."
+      },
+      {
+        "name": "game_datetime",
+        "type": "TIMESTAMP",
+        "description": "Exact game start datetime."
+      },
+      {
+        "name": "stadium",
+        "type": "TEXT",
+        "description": "Stadium name."
+      },
+      {
+        "name": "roof",
+        "type": "BIGINT",
+        "description": "Indicator for roof type or status."
+      },
+      {
+        "name": "temp",
+        "type": "DOUBLE PRECISION",
+        "description": "Temperature at game time."
+      },
+      {
+        "name": "wind",
+        "type": "DOUBLE PRECISION",
+        "description": "Wind speed at game time."
+      },
+      {
+        "name": "pass",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator for a pass play."
+      },
+      {
+        "name": "rush",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator for a rush play."
+      },
+      {
+        "name": "first_down",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a first down was achieved."
+      },
+      {
+        "name": "xpass",
+        "type": "DOUBLE PRECISION",
+        "description": "Advanced passing metric."
+      },
+      {
+        "name": "season",
+        "type": "BIGINT",
+        "description": "Season year."
+      },
+      {
+        "name": "defenders_in_box",
+        "type": "DOUBLE PRECISION",
+        "description": "Number of defenders in the box during the play."
+      },
+      {
+        "name": "number_of_pass_rushers",
+        "type": "DOUBLE PRECISION",
+        "description": "Number of pass rushers present."
+      },
+      {
+        "name": "time_to_throw",
+        "type": "DOUBLE PRECISION",
+        "description": "Time taken for the quarterback to throw the ball."
+      },
+      {
+        "name": "hitch_route",
+        "type": "BIGINT",
+        "description": "Indicator for a hitch route."
+      },
+      {
+        "name": "angle_route",
+        "type": "BIGINT",
+        "description": "Indicator for an angle route."
+      },
+      {
+        "name": "screen_route",
+        "type": "BIGINT",
+        "description": "Indicator for a screen route."
+      },
+      {
+        "name": "in_route",
+        "type": "BIGINT",
+        "description": "Indicator for an in route."
+      },
+      {
+        "name": "flat_route",
+        "type": "BIGINT",
+        "description": "Indicator for a flat route."
+      },
+      {
+        "name": "post_route",
+        "type": "BIGINT",
+        "description": "Indicator for a post route."
+      },
+      {
+        "name": "cross_route",
+        "type": "BIGINT",
+        "description": "Indicator for a cross route."
+      },
+      {
+        "name": "out_route",
+        "type": "BIGINT",
+        "description": "Indicator for an out route."
+      },
+      {
+        "name": "go_route",
+        "type": "BIGINT",
+        "description": "Indicator for a go route."
+      },
+      {
+        "name": "corner_route",
+        "type": "BIGINT",
+        "description": "Indicator for a corner route."
+      },
+      {
+        "name": "slant_route",
+        "type": "BIGINT",
+        "description": "Indicator for a slant route."
+      },
+      {
+        "name": "wheel_route",
+        "type": "BIGINT",
+        "description": "Indicator for a wheel route."
+      },
+      {
+        "name": "defense_zone_coverage",
+        "type": "BIGINT",
+        "description": "Indicator for zone coverage by defense."
+      },
+      {
+        "name": "defense_man_coverage",
+        "type": "BIGINT",
+        "description": "Indicator for man-to-man coverage by defense."
+      },
+      {
+        "name": "passer_name",
+        "type": "TEXT",
+        "description": "Name of the player passing the ball."
+      },
+      {
+        "name": "receiver_name",
+        "type": "TEXT",
+        "description": "Name of the player receiving the ball."
+      },
+      {
+        "name": "rusher_name",
+        "type": "TEXT",
+        "description": "Name of the player rushing the ball."
+      },
+      {
+        "name": "touchdown_player_name",
+        "type": "TEXT",
+        "description": "Name of the player scoring a touchdown."
+      },
+      {
+        "name": "possession_team_name",
+        "type": "TEXT",
+        "description": "Name of the team in possession."
+      },
+      {
+        "name": "defense_team_name",
+        "type": "TEXT",
+        "description": "Name of the defensive team."
+      },
+      {
+        "name": "drive_time_of_possession_in_seconds",
+        "type": "BIGINT",
+        "description": "Duration of the drive in seconds."
+      }
+    ]
+  },
+  "sportgpt_results": {
+    "table": "sportgpt_results",
+    "schema": "public",
+    "description": "Contains results and related metadata from SportGPT queries.",
+    "columns": [
+      {
+        "name": "answer",
+        "type": "TEXT",
+        "description": "Answer provided by SportGPT."
+      },
+      {
+        "name": "question",
+        "type": "TEXT",
+        "description": "Question that was asked."
+      },
+      {
+        "name": "query",
+        "type": "TEXT",
+        "description": "Original query text."
+      }
+    ]
+  },
+  "mlb_pitching_dataframe": {
+    "table": "mlb_pitching_dataframe",
+    "schema": "public",
+    "description": "Contains per-game pitching statistics for MLB pitchers.",
+    "columns": [
+      {
+        "name": "season_id",
+        "type": "BIGINT",
+        "description": "Unique identifier for the season."
+      },
+      {
+        "name": "game_date",
+        "type": "TIMESTAMP",
+        "description": "Date and time of the game."
+      },
+      {
+        "name": "pitcher_name",
+        "type": "TEXT",
+        "description": "Name of the pitcher."
+      },
+      {
+        "name": "team_name",
+        "type": "TEXT",
+        "description": "Name of the pitcher's team."
+      },
+      {
+        "name": "opponent_name",
+        "type": "TEXT",
+        "description": "Name of the opposing team."
+      },
+      {
+        "name": "ip",
+        "type": "DOUBLE PRECISION",
+        "description": "Innings pitched."
+      },
+      {
+        "name": "h_allowed",
+        "type": "DOUBLE PRECISION",
+        "description": "Hits allowed."
+      },
+      {
+        "name": "r_allowed",
+        "type": "DOUBLE PRECISION",
+        "description": "Runs allowed."
+      },
+      {
+        "name": "er_allowed",
+        "type": "DOUBLE PRECISION",
+        "description": "Earned runs allowed."
+      },
+      {
+        "name": "bb",
+        "type": "DOUBLE PRECISION",
+        "description": "Walks allowed."
+      },
+      {
+        "name": "k",
+        "type": "DOUBLE PRECISION",
+        "description": "Strikeouts recorded."
+      },
+      {
+        "name": "hr",
+        "type": "DOUBLE PRECISION",
+        "description": "Home runs allowed."
+      },
+      {
+        "name": "pitches",
+        "type": "DOUBLE PRECISION",
+        "description": "Total number of pitches thrown."
+      },
+      {
+        "name": "strike",
+        "type": "DOUBLE PRECISION",
+        "description": "Number of strikes thrown."
+      },
+      {
+        "name": "ball",
+        "type": "DOUBLE PRECISION",
+        "description": "Number of balls thrown."
+      },
+      {
+        "name": "save",
+        "type": "BIGINT",
+        "description": "Save indicator (if applicable)."
+      },
+      {
+        "name": "loss",
+        "type": "BIGINT",
+        "description": "Loss indicator (if applicable)."
+      },
+      {
+        "name": "win",
+        "type": "BIGINT",
+        "description": "Win indicator (if applicable)."
+      },
+      {
+        "name": "pa",
+        "type": "DOUBLE PRECISION",
+        "description": "Plate appearances faced."
+      },
+      {
+        "name": "ab",
+        "type": "DOUBLE PRECISION",
+        "description": "At-bats against."
+      },
+      {
+        "name": "single_allowed",
+        "type": "DOUBLE PRECISION",
+        "description": "Singles allowed."
+      },
+      {
+        "name": "double_allowed",
+        "type": "DOUBLE PRECISION",
+        "description": "Doubles allowed."
+      },
+      {
+        "name": "triple_allowed",
+        "type": "DOUBLE PRECISION",
+        "description": "Triples allowed."
+      },
+      {
+        "name": "hit_by_pitch_allowed",
+        "type": "DOUBLE PRECISION",
+        "description": "Times hit by pitch allowed."
+      },
+      {
+        "name": "starter",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if the pitcher was the starter."
+      },
+      {
+        "name": "swinging_strike",
+        "type": "DOUBLE PRECISION",
+        "description": "Swinging strikes recorded."
+      },
+      {
+        "name": "called_strike",
+        "type": "DOUBLE PRECISION",
+        "description": "Called strikes recorded."
+      },
+      {
+        "name": "flyballs_allowed",
+        "type": "DOUBLE PRECISION",
+        "description": "Fly balls allowed."
+      },
+      {
+        "name": "groundballs_allowed",
+        "type": "DOUBLE PRECISION",
+        "description": "Ground balls allowed."
+      },
+      {
+        "name": "popups_allowed",
+        "type": "DOUBLE PRECISION",
+        "description": "Popups allowed."
+      },
+      {
+        "name": "line_drives_allowed",
+        "type": "DOUBLE PRECISION",
+        "description": "Line drives allowed."
+      },
+      {
+        "name": "balls_in_play_allowed",
+        "type": "DOUBLE PRECISION",
+        "description": "Balls put in play against the pitcher."
+      },
+      {
+        "name": "home",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if the game was played at home."
+      },
+      {
+        "name": "venue_name",
+        "type": "TEXT",
+        "description": "Name of the venue."
+      },
+      {
+        "name": "game_datetime",
+        "type": "TIMESTAMP",
+        "description": "Exact game datetime."
+      },
+      {
+        "name": "grounded_into_double_play_allowed",
+        "type": "DOUBLE PRECISION",
+        "description": "Double plays grounded into allowed."
+      },
+      {
+        "name": "wild_pitch",
+        "type": "DOUBLE PRECISION",
+        "description": "Wild pitches thrown."
+      },
+      {
+        "name": "fouls",
+        "type": "DOUBLE PRECISION",
+        "description": "Fouls committed by the pitcher."
+      }
+    ]
+  },
+  "mlb_batting_dataframe": {
+    "table": "mlb_batting_dataframe",
+    "schema": "public",
+    "description": "Contains per-game batting statistics for MLB batters.",
+    "columns": [
+      {
+        "name": "season_id",
+        "type": "BIGINT",
+        "description": "Unique identifier for the season."
+      },
+      {
+        "name": "game_date",
+        "type": "TIMESTAMP",
+        "description": "Date and time of the game."
+      },
+      {
+        "name": "batter_name",
+        "type": "TEXT",
+        "description": "Name of the batter."
+      },
+      {
+        "name": "team_name",
+        "type": "TEXT",
+        "description": "Team of the batter."
+      },
+      {
+        "name": "opponent_name",
+        "type": "TEXT",
+        "description": "Name of the opposing team."
+      },
+      {
+        "name": "ab",
+        "type": "BIGINT",
+        "description": "Number of at-bats."
+      },
+      {
+        "name": "r",
+        "type": "BIGINT",
+        "description": "Runs scored by the batter."
+      },
+      {
+        "name": "h",
+        "type": "BIGINT",
+        "description": "Hits recorded by the batter."
+      },
+      {
+        "name": "singles",
+        "type": "BIGINT",
+        "description": "Number of singles hit."
+      },
+      {
+        "name": "doubles",
+        "type": "BIGINT",
+        "description": "Number of doubles hit."
+      },
+      {
+        "name": "triples",
+        "type": "BIGINT",
+        "description": "Number of triples hit."
+      },
+      {
+        "name": "hr",
+        "type": "BIGINT",
+        "description": "Home runs hit."
+      },
+      {
+        "name": "rbi",
+        "type": "BIGINT",
+        "description": "Runs batted in."
+      },
+      {
+        "name": "sb",
+        "type": "BIGINT",
+        "description": "Stolen bases."
+      },
+      {
+        "name": "bb",
+        "type": "BIGINT",
+        "description": "Walks drawn."
+      },
+      {
+        "name": "k",
+        "type": "BIGINT",
+        "description": "Strikeouts."
+      },
+      {
+        "name": "pa",
+        "type": "DOUBLE PRECISION",
+        "description": "Plate appearances."
+      },
+      {
+        "name": "flyballs",
+        "type": "DOUBLE PRECISION",
+        "description": "Fly balls hit."
+      },
+      {
+        "name": "groundballs",
+        "type": "DOUBLE PRECISION",
+        "description": "Ground balls hit."
+      },
+      {
+        "name": "popups",
+        "type": "DOUBLE PRECISION",
+        "description": "Pop-ups recorded."
+      },
+      {
+        "name": "line_drives",
+        "type": "DOUBLE PRECISION",
+        "description": "Line drives hit."
+      },
+      {
+        "name": "balls_in_play",
+        "type": "DOUBLE PRECISION",
+        "description": "Balls put in play."
+      },
+      {
+        "name": "hit_by_pitch",
+        "type": "DOUBLE PRECISION",
+        "description": "Times hit by a pitch."
+      },
+      {
+        "name": "home",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if the game was played at home."
+      },
+      {
+        "name": "venue_name",
+        "type": "TEXT",
+        "description": "Name of the venue."
+      },
+      {
+        "name": "game_datetime",
+        "type": "TIMESTAMP",
+        "description": "Exact game datetime."
+      },
+      {
+        "name": "grounded_into_double_play",
+        "type": "DOUBLE PRECISION",
+        "description": "Number of double plays grounded into."
+      },
+      {
+        "name": "batting_order_lineup",
+        "type": "INTEGER",
+        "description": "Batting order position."
+      },
+      {
+        "name": "sac_fly",
+        "type": "DOUBLE PRECISION",
+        "description": "Sacrifice flies recorded."
+      },
+      {
+        "name": "sac_bunt",
+        "type": "DOUBLE PRECISION",
+        "description": "Sacrifice bunts recorded."
+      },
+      {
+        "name": "bunt_grounds_out",
+        "type": "DOUBLE PRECISION",
+        "description": "Bunts resulting in a ground out."
+      },
+      {
+        "name": "bunt_hit",
+        "type": "DOUBLE PRECISION",
+        "description": "Bunts resulting in a hit."
+      },
+      {
+        "name": "fouls",
+        "type": "DOUBLE PRECISION",
+        "description": "Fouls committed by the batter."
+      }
+    ]
+  },
+  "plate_appearance_dataframe": {
+    "table": "plate_appearance_dataframe",
+    "schema": "public",
+    "description": "Contains data for each plate appearance in MLB games, capturing pitch release and batter outcomes.",
+    "columns": [
+      {
+        "name": "game_date",
+        "type": "TIMESTAMP",
+        "description": "Date and time of the game."
+      },
+      {
+        "name": "release_speed",
+        "type": "DOUBLE PRECISION",
+        "description": "Pitch release speed (MPH)."
+      },
+      {
+        "name": "zone",
+        "type": "DOUBLE PRECISION",
+        "description": "Pitch zone metric."
+      },
+      {
+        "name": "game_type",
+        "type": "TEXT",
+        "description": "Type of game (e.g., regular season, playoffs)."
+      },
+      {
+        "name": "batter_hand",
+        "type": "TEXT",
+        "description": "Batter's handedness (R or L)."
+      },
+      {
+        "name": "p_throws",
+        "type": "TEXT",
+        "description": "Pitcher's throwing hand (R or L)."
+      },
+      {
+        "name": "balls",
+        "type": "BIGINT",
+        "description": "Number of balls in the count."
+      },
+      {
+        "name": "strikes",
+        "type": "BIGINT",
+        "description": "Number of strikes in the count."
+      },
+      {
+        "name": "game_year",
+        "type": "BIGINT",
+        "description": "Year of the game."
+      },
+      {
+        "name": "runner_on_3b",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a runner is on third base."
+      },
+      {
+        "name": "runner_on_2b",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a runner is on second base."
+      },
+      {
+        "name": "runner_on_1b",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a runner is on first base."
+      },
+      {
+        "name": "outs_when_up",
+        "type": "BIGINT",
+        "description": "Number of outs when the batter comes to the plate."
+      },
+      {
+        "name": "inning",
+        "type": "BIGINT",
+        "description": "Inning of the plate appearance."
+      },
+      {
+        "name": "inning_topbot",
+        "type": "TEXT",
+        "description": "Indicator for the top or bottom of the inning."
+      },
+      {
+        "name": "batted_ball_distance",
+        "type": "DOUBLE PRECISION",
+        "description": "Distance the ball traveled when hit."
+      },
+      {
+        "name": "batted_ball_exit_velocity",
+        "type": "DOUBLE PRECISION",
+        "description": "Exit velocity of the batted ball."
+      },
+      {
+        "name": "batted_ball_launch_angle",
+        "type": "DOUBLE PRECISION",
+        "description": "Launch angle of the batted ball."
+      },
+      {
+        "name": "pitch_name",
+        "type": "TEXT",
+        "description": "Name or type of the pitch."
+      },
+      {
+        "name": "pitcher_name",
+        "type": "TEXT",
+        "description": "Name of the pitcher."
+      },
+      {
+        "name": "batter_name",
+        "type": "TEXT",
+        "description": "Name of the batter."
+      },
+      {
+        "name": "runs_scored",
+        "type": "BIGINT",
+        "description": "Runs scored on the plate appearance."
+      },
+      {
+        "name": "pitcher_home",
+        "type": "BIGINT",
+        "description": "Indicator if the pitcher’s team was home."
+      },
+      {
+        "name": "batter_home",
+        "type": "BIGINT",
+        "description": "Indicator if the batter’s team was home."
+      },
+      {
+        "name": "batter_team_name",
+        "type": "TEXT",
+        "description": "Name of the batter's team."
+      },
+      {
+        "name": "pitcher_team_name",
+        "type": "TEXT",
+        "description": "Name of the pitcher's team."
+      },
+      {
+        "name": "venue_name",
+        "type": "TEXT",
+        "description": "Venue where the game was played."
+      },
+      {
+        "name": "balls_in_play",
+        "type": "BIGINT",
+        "description": "Number of balls put in play."
+      },
+      {
+        "name": "starter",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if the pitcher was a starter."
+      },
+      {
+        "name": "ab",
+        "type": "BIGINT",
+        "description": "At-bats in this plate appearance."
+      },
+      {
+        "name": "rbi",
+        "type": "BIGINT",
+        "description": "Runs batted in on the plate appearance."
+      },
+      {
+        "name": "k",
+        "type": "BIGINT",
+        "description": "Strikeouts on the plate appearance."
+      },
+      {
+        "name": "bb",
+        "type": "BIGINT",
+        "description": "Walks on the plate appearance."
+      },
+      {
+        "name": "grounded_into_double_play",
+        "type": "BIGINT",
+        "description": "Indicator if a double play was grounded into."
+      },
+      {
+        "name": "hit_by_pitch",
+        "type": "BIGINT",
+        "description": "Indicator if the batter was hit by a pitch."
+      },
+      {
+        "name": "sac_bunt",
+        "type": "BIGINT",
+        "description": "Indicator if a sacrifice bunt occurred."
+      },
+      {
+        "name": "singles",
+        "type": "BIGINT",
+        "description": "Number of singles hit in the plate appearance."
+      },
+      {
+        "name": "doubles",
+        "type": "BIGINT",
+        "description": "Number of doubles hit in the plate appearance."
+      },
+      {
+        "name": "triples",
+        "type": "BIGINT",
+        "description": "Number of triples hit in the plate appearance."
+      },
+      {
+        "name": "hr",
+        "type": "BIGINT",
+        "description": "Number of home runs hit in the plate appearance."
+      },
+      {
+        "name": "h",
+        "type": "BIGINT",
+        "description": "Total hits in the plate appearance."
+      },
+      {
+        "name": "intentional_walk",
+        "type": "BIGINT",
+        "description": "Indicator if an intentional walk was issued."
+      },
+      {
+        "name": "swinging_strikeout",
+        "type": "BIGINT",
+        "description": "Indicator if the batter swung and missed for a strikeout."
+      },
+      {
+        "name": "called_strikeout",
+        "type": "BIGINT",
+        "description": "Indicator if the batter was called for a strikeout."
+      },
+      {
+        "name": "sac_fly",
+        "type": "BIGINT",
+        "description": "Indicator if a sacrifice fly occurred."
+      },
+      {
+        "name": "pa",
+        "type": "BIGINT",
+        "description": "Plate appearance count."
+      }
+    ]
+  },
+  "pitch_dataframe": {
+    "table": "pitch_dataframe",
+    "schema": "public",
+    "description": "Contains per-pitch data for MLB games, detailing pitch characteristics and outcomes.",
+    "columns": [
+      {
+        "name": "game_date",
+        "type": "TIMESTAMP",
+        "description": "Date and time of the game."
+      },
+      {
+        "name": "release_speed",
+        "type": "DOUBLE PRECISION",
+        "description": "Speed of the pitch at release (MPH)."
+      },
+      {
+        "name": "zone",
+        "type": "DOUBLE PRECISION",
+        "description": "Zone metric indicating pitch location."
+      },
+      {
+        "name": "game_type",
+        "type": "TEXT",
+        "description": "Type of game (e.g., regular season, playoffs)."
+      },
+      {
+        "name": "batter_hand",
+        "type": "TEXT",
+        "description": "Batter's handedness (R or L)."
+      },
+      {
+        "name": "p_throws",
+        "type": "TEXT",
+        "description": "Pitcher's throwing hand (R or L)."
+      },
+      {
+        "name": "balls_count",
+        "type": "BIGINT",
+        "description": "Count of balls during the pitch."
+      },
+      {
+        "name": "strikes_count",
+        "type": "BIGINT",
+        "description": "Count of strikes during the pitch."
+      },
+      {
+        "name": "game_year",
+        "type": "BIGINT",
+        "description": "Year of the game."
+      },
+      {
+        "name": "runner_on_3b",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a runner is on third base."
+      },
+      {
+        "name": "runner_on_2b",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a runner is on second base."
+      },
+      {
+        "name": "runner_on_1b",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if a runner is on first base."
+      },
+      {
+        "name": "outs_when_up",
+        "type": "BIGINT",
+        "description": "Number of outs when the pitch was thrown."
+      },
+      {
+        "name": "inning",
+        "type": "BIGINT",
+        "description": "Inning of the pitch."
+      },
+      {
+        "name": "inning_topbot",
+        "type": "TEXT",
+        "description": "Indicates whether it is the top or bottom of the inning."
+      },
+      {
+        "name": "pitch_name",
+        "type": "TEXT",
+        "description": "Name or type of the pitch (e.g., fastball, slider)."
+      },
+      {
+        "name": "pitcher_name",
+        "type": "TEXT",
+        "description": "Name of the pitcher."
+      },
+      {
+        "name": "batter_name",
+        "type": "TEXT",
+        "description": "Name of the batter."
+      },
+      {
+        "name": "pitcher_home",
+        "type": "BIGINT",
+        "description": "Indicator if the pitcher's team was home."
+      },
+      {
+        "name": "batter_home",
+        "type": "BIGINT",
+        "description": "Indicator if the batter's team was home."
+      },
+      {
+        "name": "batter_team_name",
+        "type": "TEXT",
+        "description": "Name of the batter's team."
+      },
+      {
+        "name": "pitcher_team_name",
+        "type": "TEXT",
+        "description": "Name of the pitcher's team."
+      },
+      {
+        "name": "venue_name",
+        "type": "TEXT",
+        "description": "Venue where the game was played."
+      },
+      {
+        "name": "balls_in_play",
+        "type": "BIGINT",
+        "description": "Number of balls put in play."
+      },
+      {
+        "name": "starter",
+        "type": "DOUBLE PRECISION",
+        "description": "Indicator if the pitcher was a starter."
+      },
+      {
+        "name": "strike",
+        "type": "BIGINT",
+        "description": "Indicator if the pitch was a strike."
+      },
+      {
+        "name": "ball",
+        "type": "BIGINT",
+        "description": "Indicator if the pitch was a ball."
+      },
+      {
+        "name": "called_strike",
+        "type": "BIGINT",
+        "description": "Indicator if the pitch was a called strike."
+      },
+      {
+        "name": "swinging_strike",
+        "type": "BIGINT",
+        "description": "Indicator if the pitch resulted in a swinging strike."
+      },
+      {
+        "name": "fouls",
+        "type": "BIGINT",
+        "description": "Number of fouls committed on the pitch."
+      },
+      {
+        "name": "swings",
+        "type": "BIGINT",
+        "description": "Number of swings at the pitch."
       }
     ]
   }
