@@ -483,15 +483,17 @@ def generate_sql(state: State):
     prompt += """
     
     CRITICAL SQL REQUIREMENTS:
-    1. Always use coalesce(column_name,0) for each single metrics calculation if you need to use multiple metrics to determine a single column.
-    2. If you need to use multiple metrics to determine a single column, make sure to select all the metrics in the query.
-    3. Do not fabricate table joins that are not specified in the documentation
-    4. For division operations, cast operands to FLOAT to ensure accurate results
-    5. Include appropriate GROUP BY clause for all non-aggregated columns in SELECT
-    6. Add checks to prevent division by zero (NULLIF or similar)
-    7. Return top 10 results for "best," "worst," "highest," or "lowest" questions
-    8. When calculating averages, percentages, or rates, use the exact formulas specified in the metrics documentation
-    9. Add appropriate WHERE filters based on the question
+    1. Do not use any column which is not available in the table, so always self criticize and check the columns. If you see the metrics definition is
+       not available in the table, then use the formula from your previous knowledge about the particular sport.
+    2. Always use coalesce(column_name,0) for each single metrics calculation if you need to use multiple metrics to determine a single column.
+    3. If you need to use multiple metrics to determine a single column, make sure to select all the metrics in the query.
+    4. Do not fabricate table joins that are not specified in the documentation
+    5. For division operations, cast operands to FLOAT to ensure accurate results
+    6. Include appropriate GROUP BY clause for all non-aggregated columns in SELECT
+    7. Add checks to prevent division by zero (NULLIF or similar)
+    8. Return top 10 results for "best," "worst," "highest," or "lowest" questions
+    9. When calculating averages, percentages, or rates, use the exact formulas specified in the metrics documentation
+    10. Add appropriate WHERE filters based on the question
     10. Add appropriate ORDER BY clause based on the question
     11. For win percentage calculations, always use multiplication by 1.0 to ensure FLOAT conversion
     
